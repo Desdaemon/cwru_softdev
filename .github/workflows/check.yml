@@ -6,16 +6,24 @@ on: # rebuild any PRs and main branch changes
       - main
 
 jobs:
-  dart: # make sure the action works on a clean machine without building
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # - uses: dart-lang/setup-dart@v1
+  lint:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: dart-lang/setup-dart@v1
+      - name: Lint check (run `dart format -l 120 .` if this fails)
+        run: dart format --line-length 120 -o none --set-exit-if-changed .
+  analyze: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Lint check (run `dart format --line-length 120 .` if this fails)
-        run: dart format --line-length 120 -o none --set-exit-if-changed .
       - run: flutter pub get
       - uses: invertase/github-action-dart-analyzer@v1
         with:
@@ -39,3 +47,8 @@ jobs:
           # (Optional) The working directory to run the Dart analyzer in
           # (defaults to `./`).
           working-directory: ./
+  test:
+    runs-on: ubuntu-latest
+    needs: analyze
+    steps:
+      - run: flutter test
