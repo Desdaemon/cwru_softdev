@@ -16,6 +16,7 @@ jobs:
           channel: 'stable'
       - name: Lint check (run `dart format --line-length 120 .` if this fails)
         run: dart format --line-length 120 -o none --set-exit-if-changed .
+      - run: flutter pub get
       - uses: invertase/github-action-dart-analyzer@v1
         with:
           # (Optional) Treat info level issues as fatal.
