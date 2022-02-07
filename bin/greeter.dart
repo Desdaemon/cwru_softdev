@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cwru_softdev/generated/greeter.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
