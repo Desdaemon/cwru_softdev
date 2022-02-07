@@ -19,6 +19,7 @@ clean:
     flutter clean
     rm -r backend/generated
     mkdir -p backend/generated
+    touch backend/generated/__init__.py
     rm -r lib/generated
     mkdir -p lib/generated
 
