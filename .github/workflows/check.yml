@@ -11,8 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1
-      - name: Lint check (run `dart format -l 120 .` if this fails)
-        run: dart format --line-length 120 -o none --set-exit-if-changed .
+      - name: Lint check (run `just lint` if this fails)
+        run: |
+          dart format --line-length 120 -o none --set-exit-if-changed \
+            $(find . -name "*.dart" -not -name "*.pb*.dart")
   analyze: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
