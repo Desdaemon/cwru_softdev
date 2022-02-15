@@ -36,10 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   protobuf: ^2.0.1
   grpc: ^3.0.2
-  map: ^1.0.0
   flutter_map: ^0.14.0
-  latlng: ^0.1.0
   latlong2: ^0.8.1
+  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_test:
