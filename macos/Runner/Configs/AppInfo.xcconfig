@@ -8,7 +8,7 @@
 PRODUCT_NAME = cwru_softdev
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = edu.case.cwruSoftdev
+PRODUCT_BUNDLE_IDENTIFIER = edu.cwru.cwruSoftdev
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 edu.case. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 edu.cwru. All rights reserved.

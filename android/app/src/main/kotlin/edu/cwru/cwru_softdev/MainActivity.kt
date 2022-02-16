@@ -1,4 +1,4 @@
-package edu.case.cwru_softdev
+package edu.cwru.cwru_softdev
 
 import io.flutter.embedding.android.FlutterActivity
 

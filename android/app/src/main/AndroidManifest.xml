@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.case.cwru_softdev">
+    package="edu.cwru.cwru_softdev">
    <application
         android:label="cwru_softdev"
         android:name="${applicationName}"
