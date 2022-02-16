@@ -19,15 +19,16 @@ extension LayerExt on Layers {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key})
-      : assert(const bool.hasEnvironment(_accessTokenEnv),
-            'MapBox token not provided' "Define one by using '--dart-define=$_accessTokenEnv=..'"),
-        super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  _HomePageState() {
+    assert(const bool.hasEnvironment(_accessTokenEnv),
+        'MapBox token not provided.\n' "Define one by using '--dart-define=$_accessTokenEnv=..'");
+  }
   static const _maxZoom = 18.0;
   static const _minZoom = 1.0;
 
