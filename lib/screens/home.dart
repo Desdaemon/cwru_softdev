@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
           zoom: _zoom,
           maxZoom: _maxZoom,
           minZoom: _minZoom,
-          enableScrollWheel: false,
+          enableMultiFingerGestureRace: true,
         ),
         mapController: _controller,
         layers: [
