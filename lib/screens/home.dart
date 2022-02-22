@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FlutterMap(
-        // CWRU's position
+        // CWRUs position
         options: MapOptions(
           center: LatLng(41.5043453, -81.6105725),
           zoom: _zoom,
@@ -130,16 +130,16 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.map),
+            label: 'Map',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.add_circle_outline),
+            label: 'New Trip',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.list),
+            label: 'Trips',
           ),
         ],
         currentIndex: _counter,
