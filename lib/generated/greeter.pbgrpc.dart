@@ -13,57 +13,201 @@ import 'package:grpc/service_api.dart' as $grpc;
 import 'greeter.pb.dart' as $0;
 export 'greeter.pb.dart';
 
-class GreeterClient extends $grpc.Client {
-  static final _$sayHello = $grpc.ClientMethod<$0.HelloRequest, $0.HelloReply>(
-      '/Greeter/sayHello',
-      ($0.HelloRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.HelloReply.fromBuffer(value));
-  static final _$sayHelloAgain = $grpc.ClientMethod<$0.HelloRequest, $0.HelloReply>(
-      '/Greeter/sayHelloAgain',
-      ($0.HelloRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.HelloReply.fromBuffer(value));
+class UsersClient extends $grpc.Client {
+  static final _$register = $grpc.ClientMethod<$0.RegisterRequest, $0.User>(
+      '/Users/register',
+      ($0.RegisterRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.User.fromBuffer(value));
+  static final _$login = $grpc.ClientMethod<$0.LoginRequest, $0.User>(
+      '/Users/login',
+      ($0.LoginRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.User.fromBuffer(value));
 
-  GreeterClient($grpc.ClientChannel channel,
-      {$grpc.CallOptions? options, $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+  UsersClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
-  $grpc.ResponseFuture<$0.HelloReply> sayHello($0.HelloRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$sayHello, request, options: options);
+  $grpc.ResponseFuture<$0.User> register($0.RegisterRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$register, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.HelloReply> sayHelloAgain($0.HelloRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$sayHelloAgain, request, options: options);
+  $grpc.ResponseFuture<$0.User> login($0.LoginRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$login, request, options: options);
   }
 }
 
-abstract class GreeterServiceBase extends $grpc.Service {
-  $core.String get $name => 'Greeter';
+abstract class UsersServiceBase extends $grpc.Service {
+  $core.String get $name => 'Users';
 
-  GreeterServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.HelloRequest, $0.HelloReply>(
-        'sayHello',
-        sayHello_Pre,
+  UsersServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.RegisterRequest, $0.User>(
+        'register',
+        register_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.HelloRequest.fromBuffer(value),
-        ($0.HelloReply value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.HelloRequest, $0.HelloReply>(
-        'sayHelloAgain',
-        sayHelloAgain_Pre,
+        ($core.List<$core.int> value) => $0.RegisterRequest.fromBuffer(value),
+        ($0.User value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.LoginRequest, $0.User>(
+        'login',
+        login_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.HelloRequest.fromBuffer(value),
-        ($0.HelloReply value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.LoginRequest.fromBuffer(value),
+        ($0.User value) => value.writeToBuffer()));
   }
 
-  $async.Future<$0.HelloReply> sayHello_Pre($grpc.ServiceCall call, $async.Future<$0.HelloRequest> request) async {
-    return sayHello(call, await request);
+  $async.Future<$0.User> register_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.RegisterRequest> request) async {
+    return register(call, await request);
   }
 
-  $async.Future<$0.HelloReply> sayHelloAgain_Pre($grpc.ServiceCall call, $async.Future<$0.HelloRequest> request) async {
-    return sayHelloAgain(call, await request);
+  $async.Future<$0.User> login_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.LoginRequest> request) async {
+    return login(call, await request);
   }
 
-  $async.Future<$0.HelloReply> sayHello($grpc.ServiceCall call, $0.HelloRequest request);
-  $async.Future<$0.HelloReply> sayHelloAgain($grpc.ServiceCall call, $0.HelloRequest request);
+  $async.Future<$0.User> register(
+      $grpc.ServiceCall call, $0.RegisterRequest request);
+  $async.Future<$0.User> login($grpc.ServiceCall call, $0.LoginRequest request);
+}
+
+class TripsClient extends $grpc.Client {
+  static final _$tripsOf =
+      $grpc.ClientMethod<$0.TripsOfRequest, $0.TripsOfResponse>(
+          '/Trips/tripsOf',
+          ($0.TripsOfRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.TripsOfResponse.fromBuffer(value));
+  static final _$addTrip = $grpc.ClientMethod<$0.AddTripRequest, $0.Result>(
+      '/Trips/addTrip',
+      ($0.AddTripRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
+  static final _$deleteTrip =
+      $grpc.ClientMethod<$0.DeleteTripRequest, $0.Result>(
+          '/Trips/deleteTrip',
+          ($0.DeleteTripRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
+  static final _$addPhoto = $grpc.ClientMethod<$0.AddPhotoRequest, $0.Result>(
+      '/Trips/addPhoto',
+      ($0.AddPhotoRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
+  static final _$photosOf =
+      $grpc.ClientMethod<$0.PhotosOfRequest, $0.PhotosOfResponse>(
+          '/Trips/photosOf',
+          ($0.PhotosOfRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.PhotosOfResponse.fromBuffer(value));
+
+  TripsClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$0.TripsOfResponse> tripsOf($0.TripsOfRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$tripsOf, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Result> addTrip($0.AddTripRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addTrip, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Result> deleteTrip($0.DeleteTripRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteTrip, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Result> addPhoto($0.AddPhotoRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addPhoto, request, options: options);
+  }
+
+  $grpc.ResponseStream<$0.PhotosOfResponse> photosOf($0.PhotosOfRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createStreamingCall(
+        _$photosOf, $async.Stream.fromIterable([request]),
+        options: options);
+  }
+}
+
+abstract class TripsServiceBase extends $grpc.Service {
+  $core.String get $name => 'Trips';
+
+  TripsServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.TripsOfRequest, $0.TripsOfResponse>(
+        'tripsOf',
+        tripsOf_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.TripsOfRequest.fromBuffer(value),
+        ($0.TripsOfResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.AddTripRequest, $0.Result>(
+        'addTrip',
+        addTrip_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.AddTripRequest.fromBuffer(value),
+        ($0.Result value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteTripRequest, $0.Result>(
+        'deleteTrip',
+        deleteTrip_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.DeleteTripRequest.fromBuffer(value),
+        ($0.Result value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.AddPhotoRequest, $0.Result>(
+        'addPhoto',
+        addPhoto_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.AddPhotoRequest.fromBuffer(value),
+        ($0.Result value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PhotosOfRequest, $0.PhotosOfResponse>(
+        'photosOf',
+        photosOf_Pre,
+        false,
+        true,
+        ($core.List<$core.int> value) => $0.PhotosOfRequest.fromBuffer(value),
+        ($0.PhotosOfResponse value) => value.writeToBuffer()));
+  }
+
+  $async.Future<$0.TripsOfResponse> tripsOf_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.TripsOfRequest> request) async {
+    return tripsOf(call, await request);
+  }
+
+  $async.Future<$0.Result> addTrip_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.AddTripRequest> request) async {
+    return addTrip(call, await request);
+  }
+
+  $async.Future<$0.Result> deleteTrip_Pre($grpc.ServiceCall call,
+      $async.Future<$0.DeleteTripRequest> request) async {
+    return deleteTrip(call, await request);
+  }
+
+  $async.Future<$0.Result> addPhoto_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.AddPhotoRequest> request) async {
+    return addPhoto(call, await request);
+  }
+
+  $async.Stream<$0.PhotosOfResponse> photosOf_Pre($grpc.ServiceCall call,
+      $async.Future<$0.PhotosOfRequest> request) async* {
+    yield* photosOf(call, await request);
+  }
+
+  $async.Future<$0.TripsOfResponse> tripsOf(
+      $grpc.ServiceCall call, $0.TripsOfRequest request);
+  $async.Future<$0.Result> addTrip(
+      $grpc.ServiceCall call, $0.AddTripRequest request);
+  $async.Future<$0.Result> deleteTrip(
+      $grpc.ServiceCall call, $0.DeleteTripRequest request);
+  $async.Future<$0.Result> addPhoto(
+      $grpc.ServiceCall call, $0.AddPhotoRequest request);
+  $async.Stream<$0.PhotosOfResponse> photosOf(
+      $grpc.ServiceCall call, $0.PhotosOfRequest request);
 }

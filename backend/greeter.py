@@ -1,26 +1,49 @@
 import grpc
 import sys
-from concurrent import futures
-from generated.greeter_pb2 import *
-from generated import greeter_pb2_grpc
 import logging
+from typing import Iterator
+from concurrent import futures
+from generated import greeter_pb2_grpc
+from generated.greeter_pb2 import *
 
 PORT = 50051
 
-class GreeterServicer(greeter_pb2_grpc.GreeterServicer):
-    def sayHello(self, request: HelloRequest, _: grpc.ServicerContext) -> HelloReply:
-        logging.info(request)
-        name = request.name or "stranger"
-        return HelloReply(message=f"Hello there, {name}.")
+class UsersServicer(greeter_pb2_grpc.UsersServicer):
+    def register(self, request: RegisterRequest, context: grpc.ServicerContext) -> User:
+        logging.info(request);
+        return super().register(request, context)
 
-    def sayHelloAgain(self, request: HelloRequest, _: grpc.ServicerContext) -> HelloReply:
-        logging.info(request)
-        name = request.name or "stranger"
-        return HelloReply(message=f"Hello again, {name}. How you doin'?")
+    def login(self, request: LoginRequest, context: grpc.ServicerContext) -> User:
+        logging.info(request);
+        return super().login(request, context)
+
+
+class TripsServicer(greeter_pb2_grpc.TripsServicer):
+    def tripsOf(self, request: TripsOfRequest, context: grpc.ServicerContext) -> TripsOfResponse:
+        logging.info(request);
+        return super().tripsOf(request, context)
+
+    def photosOf(self, request: PhotosOfRequest, context: grpc.ServicerContext) -> Iterator[PhotosOfResponse]:
+        logging.info(request);
+        return super().photosOf(request, context)
+
+    def addTrip(self, request: AddTripRequest, context: grpc.ServicerContext) -> Result:
+        logging.info(request);
+        return super().addTrip(request, context)
+
+    def deleteTrip(self, request: DeleteTripRequest, context: grpc.ServicerContext) -> Result:
+        logging.info(request);
+        return super().deleteTrip(request, context)
+
+    def addPhoto(self, request: AddPhotoRequest, context: grpc.ServicerContext) -> Result:
+        logging.info(request);
+        return super().addPhoto(request, context)
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    greeter_pb2_grpc.add_GreeterServicer_to_server(GreeterServicer(), server)
+    greeter_pb2_grpc.add_TripsServicer_to_server(TripsServicer(), server)
+    greeter_pb2_grpc.add_UsersServicer_to_server(UsersServicer(), server)
     server.add_insecure_port(f'[::]:{PORT}')
     server.start()
     logging.info(f'Server starting on port {PORT}')
@@ -30,3 +53,4 @@ def serve():
 if __name__ == '__main__':
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     serve()
+

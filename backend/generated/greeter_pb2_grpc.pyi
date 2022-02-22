@@ -5,38 +5,88 @@ isort:skip_file
 import abc
 import greeter_pb2
 import grpc
+import typing
 
-class GreeterStub:
-    """The greeting service definition."""
+class UsersStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    sayHello: grpc.UnaryUnaryMultiCallable[
-        greeter_pb2.HelloRequest,
-        greeter_pb2.HelloReply]
-    """Sends a greeting"""
+    register: grpc.UnaryUnaryMultiCallable[
+        greeter_pb2.RegisterRequest,
+        greeter_pb2.User]
 
-    sayHelloAgain: grpc.UnaryUnaryMultiCallable[
-        greeter_pb2.HelloRequest,
-        greeter_pb2.HelloReply]
-    """Sends another greeting"""
+    login: grpc.UnaryUnaryMultiCallable[
+        greeter_pb2.LoginRequest,
+        greeter_pb2.User]
 
 
-class GreeterServicer(metaclass=abc.ABCMeta):
-    """The greeting service definition."""
+class UsersServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def sayHello(self,
-        request: greeter_pb2.HelloRequest,
+    def register(self,
+        request: greeter_pb2.RegisterRequest,
         context: grpc.ServicerContext,
-    ) -> greeter_pb2.HelloReply:
-        """Sends a greeting"""
-        pass
+    ) -> greeter_pb2.User: ...
 
     @abc.abstractmethod
-    def sayHelloAgain(self,
-        request: greeter_pb2.HelloRequest,
+    def login(self,
+        request: greeter_pb2.LoginRequest,
         context: grpc.ServicerContext,
-    ) -> greeter_pb2.HelloReply:
-        """Sends another greeting"""
-        pass
+    ) -> greeter_pb2.User: ...
 
 
-def add_GreeterServicer_to_server(servicer: GreeterServicer, server: grpc.Server) -> None: ...
+def add_UsersServicer_to_server(servicer: UsersServicer, server: grpc.Server) -> None: ...
+
+class TripsStub:
+    def __init__(self, channel: grpc.Channel) -> None: ...
+    tripsOf: grpc.UnaryUnaryMultiCallable[
+        greeter_pb2.TripsOfRequest,
+        greeter_pb2.TripsOfResponse]
+
+    addTrip: grpc.UnaryUnaryMultiCallable[
+        greeter_pb2.AddTripRequest,
+        greeter_pb2.Result]
+
+    deleteTrip: grpc.UnaryUnaryMultiCallable[
+        greeter_pb2.DeleteTripRequest,
+        greeter_pb2.Result]
+
+    addPhoto: grpc.UnaryUnaryMultiCallable[
+        greeter_pb2.AddPhotoRequest,
+        greeter_pb2.Result]
+
+    photosOf: grpc.UnaryStreamMultiCallable[
+        greeter_pb2.PhotosOfRequest,
+        greeter_pb2.PhotosOfResponse]
+
+
+class TripsServicer(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def tripsOf(self,
+        request: greeter_pb2.TripsOfRequest,
+        context: grpc.ServicerContext,
+    ) -> greeter_pb2.TripsOfResponse: ...
+
+    @abc.abstractmethod
+    def addTrip(self,
+        request: greeter_pb2.AddTripRequest,
+        context: grpc.ServicerContext,
+    ) -> greeter_pb2.Result: ...
+
+    @abc.abstractmethod
+    def deleteTrip(self,
+        request: greeter_pb2.DeleteTripRequest,
+        context: grpc.ServicerContext,
+    ) -> greeter_pb2.Result: ...
+
+    @abc.abstractmethod
+    def addPhoto(self,
+        request: greeter_pb2.AddPhotoRequest,
+        context: grpc.ServicerContext,
+    ) -> greeter_pb2.Result: ...
+
+    @abc.abstractmethod
+    def photosOf(self,
+        request: greeter_pb2.PhotosOfRequest,
+        context: grpc.ServicerContext,
+    ) -> typing.Iterator[greeter_pb2.PhotosOfResponse]: ...
+
+
+def add_TripsServicer_to_server(servicer: TripsServicer, server: grpc.Server) -> None: ...

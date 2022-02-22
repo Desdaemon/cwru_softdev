@@ -9,10 +9,17 @@ Future<void> main() async {
     port: 50051,
     options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
   );
-  final api = GreeterClient(channel);
-  await api.sayHello(HelloRequest()).then(print);
-  await api.sayHello(HelloRequest(name: 'John')).then(print);
-  await api.sayHelloAgain(HelloRequest()).then(print);
-  await api.sayHelloAgain(HelloRequest(name: 'John')).then(print);
+  final userClient = UsersClient(channel);
+  final tripClient = TripsClient(channel);
+  final user = await userClient.register(RegisterRequest(username: 'foo', email: 'foo@foo.com', password: 'hunter2'));
+  await userClient.login(LoginRequest(identity: 'foo', password: 'hunter2'));
+  final trips = await tripClient.tripsOf(TripsOfRequest(userId: user.userId));
+  for (final trip in trips.trips) {
+    await for (final res in tripClient.photosOf(
+      PhotosOfRequest(userId: user.userId, tripId: trip.tripId),
+    )) {
+      print(res.photo);
+    }
+  }
   await channel.shutdown();
 }

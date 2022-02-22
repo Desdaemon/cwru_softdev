@@ -1,19 +1,102 @@
 syntax = "proto3";
 
-// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc sayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc sayHelloAgain (HelloRequest) returns (HelloReply) {}
+message Coord {
+  double lat = 1;
+  double long = 2;
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message Result {
+  message Error {
+    repeated string errors = 1;
+  }
+  oneof result {
+    bool success = 1;
+    Error reason = 2;
+  }
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message User {
+  uint32 user_id = 1;
+  string username = 2;
+  string email = 3;
 }
+
+message Trip {
+  uint32 trip_id = 1;
+  uint32 user_id = 2;
+  repeated Coord stops = 99;
+}
+
+message Photo {
+  uint32 photo_id = 1;
+  string name = 2;
+  string extension = 3;
+  // return either one of these
+  oneof source {
+    bytes data = 99;
+    string url = 100;
+  }
+}
+
+service Users {
+  rpc register (RegisterRequest) returns (User) {}
+  rpc login (LoginRequest) returns (User) {}
+}
+
+service Trips {
+  rpc tripsOf (TripsOfRequest) returns (TripsOfResponse) {}
+  rpc addTrip (AddTripRequest) returns (Result) {}
+  rpc deleteTrip (DeleteTripRequest) returns (Result) {}
+  rpc addPhoto (AddPhotoRequest) returns (Result) {}
+  rpc photosOf (PhotosOfRequest) returns (stream PhotosOfResponse) {}
+}
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message LoginRequest {
+  string identity = 1; // either username or email
+  string password = 2;
+}
+
+message AddTripRequest {
+  uint32 user_id = 1;
+  repeated Coord stops = 99;
+}
+
+message DeleteTripRequest {
+  uint32 user_id = 1;
+  uint32 trip_id = 2;
+}
+
+message AddPhotoRequest {
+  uint32 user_id = 1;
+  string name = 2;
+  string extension = 3;
+  oneof source {
+    bytes data = 99;
+    string url = 100;
+  }
+}
+
+message TripsOfRequest {
+  uint32 user_id = 1;
+}
+
+message TripsOfResponse {
+  repeated Trip trips = 99;
+}
+
+message PhotosOfRequest {
+  uint32 user_id = 1;
+  uint32 trip_id = 2;
+}
+
+message PhotosOfResponse {
+  Photo photo = 1;
+}
+
+// vim:expandtab:sw=2:ts=2
