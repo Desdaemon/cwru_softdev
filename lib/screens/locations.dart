@@ -16,19 +16,18 @@ class _LocationsState extends ConsumerState<Locations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Location'),
-      ),
-      body: Column(
-        children: [
-          TextButton(
-              onPressed: () {
-                final currentLocs = ref.read(locations.state);
-                currentLocs.update((state) => [...state, widget.coord]);
-                Navigator.of(context).pop();
-              },
-              child: const Text('Add Location'))
-        ],
+      appBar: AppBar(title: const Text('New Location')),
+      body: Center(
+        child: TextButton.icon(
+          onPressed: () {
+            final currentLocs = ref.read(locations.notifier);
+            final coord = widget.coord;
+            Navigator.of(context).pop();
+            currentLocs.state = [...currentLocs.state, coord];
+          },
+          icon: const Icon(Icons.add),
+          label: const Text('Add Location'),
+        ),
       ),
     );
   }

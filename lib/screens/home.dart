@@ -1,6 +1,7 @@
 import 'package:cwru_softdev/providers.dart';
 import 'package:cwru_softdev/screens/locations.dart';
 import 'package:cwru_softdev/widgets/cached_tile_provider.dart';
+import 'package:cwru_softdev/widgets/map_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,16 +11,19 @@ import 'package:blur/blur.dart';
 const _accessTokenEnv = 'mapbox_token';
 const _accessToken = String.fromEnvironment(_accessTokenEnv);
 
+final _markers = Provider((ref) {
+  final locs = ref.watch(locations);
+  return locs.map((coord) => Marker(point: coord, builder: (_) => MapPin(coord: coord))).toList(growable: false);
+});
+
 enum Layers { dark, light }
 
 extension LayerExt on Layers {
   String get url => const {
-        Layers.dark:
-            'https://api.mapbox.com/styles/v1/mapbox/navigation-night-v1/tiles/{z}/{x}/{y}{r}'
-                '?access_token=$_accessToken',
-        Layers.light:
-            'https://api.mapbox.com/styles/v1/mapbox/navigation-day-v1/tiles/{z}/{x}/{y}{r}'
-                '?access_token=$_accessToken'
+        Layers.dark: 'https://api.mapbox.com/styles/v1/mapbox/navigation-night-v1/tiles/{z}/{x}/{y}{r}'
+            '?access_token=$_accessToken',
+        Layers.light: 'https://api.mapbox.com/styles/v1/mapbox/navigation-day-v1/tiles/{z}/{x}/{y}{r}'
+            '?access_token=$_accessToken'
       }[this]!;
 }
 
@@ -44,8 +48,7 @@ class _HomePageState extends State<HomePage> {
   int _counter = 0;
   bool _controllerReady = false;
 
-  bool get _isDark =>
-      MediaQuery.of(context).platformBrightness == Brightness.dark;
+  bool get _isDark => MediaQuery.of(context).platformBrightness == Brightness.dark;
 
   String get _url => _isDark ? Layers.dark.url : Layers.light.url;
 
@@ -80,15 +83,17 @@ class _HomePageState extends State<HomePage> {
       body: FlutterMap(
         // CWRUs position
         options: MapOptions(
-            center: LatLng(41.5043453, -81.6105725),
-            zoom: _zoom,
-            maxZoom: _maxZoom,
-            minZoom: _minZoom,
-            enableMultiFingerGestureRace: true,
-            onLongPress: (loc, coord) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => Locations(coord: coord)));
-            }),
+          center: LatLng(41.5043453, -81.6105725),
+          zoom: _zoom,
+          maxZoom: _maxZoom,
+          minZoom: _minZoom,
+          enableMultiFingerGestureRace: true,
+          onLongPress: (_, coord) {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => Locations(coord: coord)),
+            );
+          },
+        ),
         mapController: _controller,
         layers: [
           TileLayerOptions(
@@ -100,16 +105,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         nonRotatedChildren: [
-          Consumer(builder: (context, ref, _) {
-            final locs = ref.read(locations);
-            return MarkerLayerWidget(
-              options: MarkerLayerOptions(
-                markers: locs
-                    .map((e) => Marker(point: e, builder: _markerBuilder))
-                    .toList(),
-              ),
-            );
-          }),
+          Consumer(
+            builder: (_ctx, ref, _) => MarkerLayerWidget(
+              options: MarkerLayerOptions(markers: ref.watch(_markers)),
+            ),
+          ),
           Stack(
             children: [
               Positioned(
@@ -153,10 +153,8 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
