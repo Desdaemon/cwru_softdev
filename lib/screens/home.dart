@@ -1,6 +1,9 @@
+import 'package:cwru_softdev/providers.dart';
+import 'package:cwru_softdev/screens/locations.dart';
 import 'package:cwru_softdev/widgets/cached_tile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:blur/blur.dart';
 
@@ -11,31 +14,39 @@ enum Layers { dark, light }
 
 extension LayerExt on Layers {
   String get url => const {
-        Layers.dark: 'https://api.mapbox.com/styles/v1/mapbox/navigation-night-v1/tiles/{z}/{x}/{y}{r}'
-            '?access_token=$_accessToken',
-        Layers.light: 'https://api.mapbox.com/styles/v1/mapbox/navigation-day-v1/tiles/{z}/{x}/{y}{r}'
-            '?access_token=$_accessToken'
+        Layers.dark:
+            'https://api.mapbox.com/styles/v1/mapbox/navigation-night-v1/tiles/{z}/{x}/{y}{r}'
+                '?access_token=$_accessToken',
+        Layers.light:
+            'https://api.mapbox.com/styles/v1/mapbox/navigation-day-v1/tiles/{z}/{x}/{y}{r}'
+                '?access_token=$_accessToken'
       }[this]!;
 }
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   _HomePageState() {
-    assert(const bool.hasEnvironment(_accessTokenEnv),
-        'MapBox token not provided.\n' "Define one by using '--dart-define=$_accessTokenEnv=..'");
+    assert(
+        const bool.hasEnvironment(_accessTokenEnv),
+        'MapBox token not provided.\n'
+        "Define one by using '--dart-define=$_accessTokenEnv=..'");
   }
+
   static const _maxZoom = 18.0;
   static const _minZoom = 1.0;
 
   int _counter = 0;
   bool _controllerReady = false;
 
-  bool get _isDark => MediaQuery.of(context).platformBrightness == Brightness.dark;
+  bool get _isDark =>
+      MediaQuery.of(context).platformBrightness == Brightness.dark;
+
   String get _url => _isDark ? Layers.dark.url : Layers.light.url;
 
   late MapController _controller;
@@ -59,18 +70,25 @@ class _HomePageState extends State<HomePage> {
       });
   }
 
+  Widget _markerBuilder(BuildContext context) {
+    return const Icon(Icons.pin_drop);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FlutterMap(
         // CWRUs position
         options: MapOptions(
-          center: LatLng(41.5043453, -81.6105725),
-          zoom: _zoom,
-          maxZoom: _maxZoom,
-          minZoom: _minZoom,
-          enableMultiFingerGestureRace: true,
-        ),
+            center: LatLng(41.5043453, -81.6105725),
+            zoom: _zoom,
+            maxZoom: _maxZoom,
+            minZoom: _minZoom,
+            enableMultiFingerGestureRace: true,
+            onLongPress: (loc, coord) {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => Locations(coord: coord)));
+            }),
         mapController: _controller,
         layers: [
           TileLayerOptions(
@@ -82,6 +100,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         nonRotatedChildren: [
+          Consumer(builder: (context, ref, _) {
+            final locs = ref.read(locations);
+            return MarkerLayerWidget(
+              options: MarkerLayerOptions(
+                markers: locs
+                    .map((e) => Marker(point: e, builder: _markerBuilder))
+                    .toList(),
+              ),
+            );
+          }),
           Stack(
             children: [
               Positioned(
@@ -125,8 +153,10 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton:
+          FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
