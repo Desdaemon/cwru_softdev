@@ -1,5 +1,6 @@
 import 'package:cwru_softdev/providers.dart';
 import 'package:cwru_softdev/screens/locations.dart';
+import 'package:cwru_softdev/screens/profile.dart';
 import 'package:cwru_softdev/widgets/cached_tile_provider.dart';
 import 'package:cwru_softdev/widgets/map_pin.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +81,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          children: [
+            const DrawerHeader(child: Text('Hello there.')),
+            ListTile(
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                  return const ProfilePage();
+                }));
+              },
+            )
+          ],
+        ),
+      ),
       body: FlutterMap(
         // CWRUs position
         options: MapOptions(
