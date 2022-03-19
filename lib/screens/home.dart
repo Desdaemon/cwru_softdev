@@ -74,17 +74,14 @@ class _HomePageState extends State<HomePage> {
       });
   }
 
-  Widget _markerBuilder(BuildContext context) {
-    return const Icon(Icons.pin_drop);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      extendBodyBehindAppBar: true,
       drawer: Drawer(
         child: Column(
           children: [
-            const DrawerHeader(child: Text('Hello there.')),
             ListTile(
               title: const Text('Profile'),
               onTap: () {
