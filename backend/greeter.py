@@ -1,12 +1,14 @@
 import grpc
 import sys
 import logging
+import sqlite3
 from typing import Iterator
 from concurrent import futures
 from generated import greeter_pb2_grpc
 from generated.greeter_pb2 import *
 
 PORT = 50051
+CONN = None
 
 class UsersServicer(greeter_pb2_grpc.UsersServicer):
     def register(self, request: RegisterRequest, context: grpc.ServicerContext) -> User:
@@ -41,6 +43,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
 
 
 def serve():
+    CONN = sqlite3.connect("data.db")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     greeter_pb2_grpc.add_TripsServicer_to_server(TripsServicer(), server)
     greeter_pb2_grpc.add_UsersServicer_to_server(UsersServicer(), server)
