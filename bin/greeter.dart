@@ -11,9 +11,16 @@ Future<void> main() async {
   );
   final userClient = UsersClient(channel);
   final tripClient = TripsClient(channel);
-  final user = await userClient.register(RegisterRequest(username: 'foo', email: 'foo@foo.com', password: 'hunter2'));
-  await userClient.login(LoginRequest(identity: 'foo', password: 'hunter2'));
-  final trips = await tripClient.tripsOf(TripsOfRequest(userId: user.userId));
+  final user = await userClient.register(RegisterRequest(
+    username: 'foobar',
+    email: 'foob@foo.com',
+    password: 'hunter2',
+  ));
+  await userClient.login(LoginRequest(
+    identity: 'foo',
+    password: 'hunter2',
+  ));
+  final trips = await tripClient.tripsOf(TripsOfRequest(userId: 2));
   for (final trip in trips.trips) {
     await for (final res in tripClient.photosOf(
       PhotosOfRequest(userId: user.userId, tripId: trip.tripId),
