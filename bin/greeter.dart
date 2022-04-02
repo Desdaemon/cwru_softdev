@@ -22,10 +22,12 @@ Future<void> main() async {
   ));
   final trips = await tripClient.tripsOf(TripsOfRequest(userId: 2));
   for (final trip in trips.trips) {
-    await for (final res in tripClient.photosOf(
-      PhotosOfRequest(userId: user.userId, tripId: trip.tripId),
-    )) {
-      print(res.photo);
+    final res = tripClient.photosOf(PhotosOfRequest(
+      userId: user.userId,
+      tripId: trip.tripId,
+    ));
+    await for (final item in res) {
+      print(item.photo);
     }
   }
   await channel.shutdown();

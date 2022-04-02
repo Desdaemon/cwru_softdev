@@ -221,6 +221,11 @@ def serve():
 
 
 if __name__ == '__main__':
+    input('''
+DO NOT RUN THIS IN THE PRODUCTION ENVIRONMENT.
+This program will overwrite existing databases.
+Press Enter to acknowledge this message.
+''')
     logging.basicConfig(stream=sys.stdout, level=logging.INFO,
                         format='[%(asctime)s %(levelname)s] (%(funcName)s) %(message)s')
     serve()
