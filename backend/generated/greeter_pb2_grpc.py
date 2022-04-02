@@ -14,13 +14,13 @@ class UsersStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.register = channel.unary_unary(
-                '/Users/register',
+        self.Register = channel.unary_unary(
+                '/Users/Register',
                 request_serializer=greeter__pb2.RegisterRequest.SerializeToString,
                 response_deserializer=greeter__pb2.User.FromString,
                 )
-        self.login = channel.unary_unary(
-                '/Users/login',
+        self.Login = channel.unary_unary(
+                '/Users/Login',
                 request_serializer=greeter__pb2.LoginRequest.SerializeToString,
                 response_deserializer=greeter__pb2.User.FromString,
                 )
@@ -29,13 +29,13 @@ class UsersStub(object):
 class UsersServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def register(self, request, context):
+    def Register(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def login(self, request, context):
+    def Login(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,13 +44,13 @@ class UsersServicer(object):
 
 def add_UsersServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'register': grpc.unary_unary_rpc_method_handler(
-                    servicer.register,
+            'Register': grpc.unary_unary_rpc_method_handler(
+                    servicer.Register,
                     request_deserializer=greeter__pb2.RegisterRequest.FromString,
                     response_serializer=greeter__pb2.User.SerializeToString,
             ),
-            'login': grpc.unary_unary_rpc_method_handler(
-                    servicer.login,
+            'Login': grpc.unary_unary_rpc_method_handler(
+                    servicer.Login,
                     request_deserializer=greeter__pb2.LoginRequest.FromString,
                     response_serializer=greeter__pb2.User.SerializeToString,
             ),
@@ -65,7 +65,7 @@ class Users(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def register(request,
+    def Register(request,
             target,
             options=(),
             channel_credentials=None,
@@ -75,14 +75,14 @@ class Users(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Users/register',
+        return grpc.experimental.unary_unary(request, target, '/Users/Register',
             greeter__pb2.RegisterRequest.SerializeToString,
             greeter__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def login(request,
+    def Login(request,
             target,
             options=(),
             channel_credentials=None,
@@ -92,7 +92,7 @@ class Users(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Users/login',
+        return grpc.experimental.unary_unary(request, target, '/Users/Login',
             greeter__pb2.LoginRequest.SerializeToString,
             greeter__pb2.User.FromString,
             options, channel_credentials,
@@ -109,28 +109,28 @@ class TripsStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.tripsOf = channel.unary_unary(
-                '/Trips/tripsOf',
+        self.TripsOf = channel.unary_unary(
+                '/Trips/TripsOf',
                 request_serializer=greeter__pb2.TripsOfRequest.SerializeToString,
                 response_deserializer=greeter__pb2.TripsOfResponse.FromString,
                 )
-        self.addTrip = channel.unary_unary(
-                '/Trips/addTrip',
+        self.AddTrip = channel.unary_unary(
+                '/Trips/AddTrip',
                 request_serializer=greeter__pb2.AddTripRequest.SerializeToString,
                 response_deserializer=greeter__pb2.Result.FromString,
                 )
-        self.deleteTrip = channel.unary_unary(
-                '/Trips/deleteTrip',
+        self.DeleteTrip = channel.unary_unary(
+                '/Trips/DeleteTrip',
                 request_serializer=greeter__pb2.DeleteTripRequest.SerializeToString,
                 response_deserializer=greeter__pb2.Result.FromString,
                 )
-        self.addPhotoToDestination = channel.unary_unary(
-                '/Trips/addPhotoToDestination',
+        self.AddPhotoToDestination = channel.unary_unary(
+                '/Trips/AddPhotoToDestination',
                 request_serializer=greeter__pb2.AddDestPhotoRequest.SerializeToString,
                 response_deserializer=greeter__pb2.Result.FromString,
                 )
-        self.photosOf = channel.unary_stream(
-                '/Trips/photosOf',
+        self.PhotosOf = channel.unary_stream(
+                '/Trips/PhotosOf',
                 request_serializer=greeter__pb2.PhotosOfRequest.SerializeToString,
                 response_deserializer=greeter__pb2.PhotosOfResponse.FromString,
                 )
@@ -140,32 +140,32 @@ class TripsServicer(object):
     """define an interface to implement
     """
 
-    def tripsOf(self, request, context):
+    def TripsOf(self, request, context):
         """each method takes one parameter message and returns one response message
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def addTrip(self, request, context):
+    def AddTrip(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def deleteTrip(self, request, context):
+    def DeleteTrip(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def addPhotoToDestination(self, request, context):
+    def AddPhotoToDestination(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def photosOf(self, request, context):
+    def PhotosOf(self, request, context):
         """this method returns a stream of messages
         in both Dart and Python, this can be achieved via generators
         """
@@ -176,28 +176,28 @@ class TripsServicer(object):
 
 def add_TripsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'tripsOf': grpc.unary_unary_rpc_method_handler(
-                    servicer.tripsOf,
+            'TripsOf': grpc.unary_unary_rpc_method_handler(
+                    servicer.TripsOf,
                     request_deserializer=greeter__pb2.TripsOfRequest.FromString,
                     response_serializer=greeter__pb2.TripsOfResponse.SerializeToString,
             ),
-            'addTrip': grpc.unary_unary_rpc_method_handler(
-                    servicer.addTrip,
+            'AddTrip': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddTrip,
                     request_deserializer=greeter__pb2.AddTripRequest.FromString,
                     response_serializer=greeter__pb2.Result.SerializeToString,
             ),
-            'deleteTrip': grpc.unary_unary_rpc_method_handler(
-                    servicer.deleteTrip,
+            'DeleteTrip': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteTrip,
                     request_deserializer=greeter__pb2.DeleteTripRequest.FromString,
                     response_serializer=greeter__pb2.Result.SerializeToString,
             ),
-            'addPhotoToDestination': grpc.unary_unary_rpc_method_handler(
-                    servicer.addPhotoToDestination,
+            'AddPhotoToDestination': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddPhotoToDestination,
                     request_deserializer=greeter__pb2.AddDestPhotoRequest.FromString,
                     response_serializer=greeter__pb2.Result.SerializeToString,
             ),
-            'photosOf': grpc.unary_stream_rpc_method_handler(
-                    servicer.photosOf,
+            'PhotosOf': grpc.unary_stream_rpc_method_handler(
+                    servicer.PhotosOf,
                     request_deserializer=greeter__pb2.PhotosOfRequest.FromString,
                     response_serializer=greeter__pb2.PhotosOfResponse.SerializeToString,
             ),
@@ -213,7 +213,7 @@ class Trips(object):
     """
 
     @staticmethod
-    def tripsOf(request,
+    def TripsOf(request,
             target,
             options=(),
             channel_credentials=None,
@@ -223,14 +223,14 @@ class Trips(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Trips/tripsOf',
+        return grpc.experimental.unary_unary(request, target, '/Trips/TripsOf',
             greeter__pb2.TripsOfRequest.SerializeToString,
             greeter__pb2.TripsOfResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def addTrip(request,
+    def AddTrip(request,
             target,
             options=(),
             channel_credentials=None,
@@ -240,14 +240,14 @@ class Trips(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Trips/addTrip',
+        return grpc.experimental.unary_unary(request, target, '/Trips/AddTrip',
             greeter__pb2.AddTripRequest.SerializeToString,
             greeter__pb2.Result.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def deleteTrip(request,
+    def DeleteTrip(request,
             target,
             options=(),
             channel_credentials=None,
@@ -257,14 +257,14 @@ class Trips(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Trips/deleteTrip',
+        return grpc.experimental.unary_unary(request, target, '/Trips/DeleteTrip',
             greeter__pb2.DeleteTripRequest.SerializeToString,
             greeter__pb2.Result.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def addPhotoToDestination(request,
+    def AddPhotoToDestination(request,
             target,
             options=(),
             channel_credentials=None,
@@ -274,14 +274,14 @@ class Trips(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Trips/addPhotoToDestination',
+        return grpc.experimental.unary_unary(request, target, '/Trips/AddPhotoToDestination',
             greeter__pb2.AddDestPhotoRequest.SerializeToString,
             greeter__pb2.Result.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def photosOf(request,
+    def PhotosOf(request,
             target,
             options=(),
             channel_credentials=None,
@@ -291,7 +291,7 @@ class Trips(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/Trips/photosOf',
+        return grpc.experimental.unary_stream(request, target, '/Trips/PhotosOf',
             greeter__pb2.PhotosOfRequest.SerializeToString,
             greeter__pb2.PhotosOfResponse.FromString,
             options, channel_credentials,

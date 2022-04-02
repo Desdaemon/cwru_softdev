@@ -13,9 +13,6 @@ import typing_extensions
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class Result(google.protobuf.message.Message):
-    """option optimize_for = LITE_RUNTIME;
-
-    """
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     ERRORS_FIELD_NUMBER: builtins.int
     @property

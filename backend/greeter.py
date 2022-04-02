@@ -51,7 +51,7 @@ def sqlCursor(query: str, params=(), batch_size=16) -> Iterator[tuple]:
             return
 
 class UsersServicer(greeter_pb2_grpc.UsersServicer):
-    def register(self, request: RegisterRequest, context: grpc.ServicerContext) -> User:
+    def Register(self, request: RegisterRequest, context: grpc.ServicerContext) -> User:
         username = request.username
         email = request.email
         password = request.password
@@ -64,7 +64,7 @@ class UsersServicer(greeter_pb2_grpc.UsersServicer):
         user_id, = new_user[0]
         return User(user_id=int(user_id), username=username, email=email)
 
-    def login(self, request: LoginRequest, context: grpc.ServicerContext) -> User:
+    def Login(self, request: LoginRequest, context: grpc.ServicerContext) -> User:
         identity = request.identity
         password = request.password
         logging.info(f'{identity=}')
@@ -82,7 +82,7 @@ class UsersServicer(greeter_pb2_grpc.UsersServicer):
 
 
 class TripsServicer(greeter_pb2_grpc.TripsServicer):
-    def tripsOf(self, request: TripsOfRequest, context: grpc.ServicerContext) -> TripsOfResponse:
+    def TripsOf(self, request: TripsOfRequest, context: grpc.ServicerContext) -> TripsOfResponse:
         userid = request.user_id
         logging.info(f'{userid=}')
         stops = sql(
@@ -113,7 +113,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
             for trip_id, stops in trips.items()
         ])
 
-    def photosOf(self, request: PhotosOfRequest, context: grpc.ServicerContext) -> Iterator[PhotosOfResponse]:
+    def PhotosOf(self, request: PhotosOfRequest, context: grpc.ServicerContext) -> Iterator[PhotosOfResponse]:
         userid = request.user_id
         tripid = request.trip_id
         logging.info(f'{userid=} {tripid=}')
@@ -143,7 +143,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
                 url=url,
             ))
 
-    def addTrip(self, request: AddTripRequest, context: grpc.ServicerContext) -> Result:
+    def AddTrip(self, request: AddTripRequest, context: grpc.ServicerContext) -> Result:
         userid = request.user_id
         logging.info(f'{userid=} {[*request.trips]=}')
         with connect() as con:
@@ -172,7 +172,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         return Result()
 
 
-    def deleteTrip(self, request: DeleteTripRequest, context: grpc.ServicerContext) -> Result:
+    def DeleteTrip(self, request: DeleteTripRequest, context: grpc.ServicerContext) -> Result:
         userid = request.user_id
         tripid = request.trip_id
         sql(
@@ -182,7 +182,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         return Result()
 
     
-    def addPhotoToDestination(self, request: AddDestPhotoRequest, context: grpc.ServicerContext) -> Result:
+    def AddPhotoToDestination(self, request: AddDestPhotoRequest, context: grpc.ServicerContext) -> Result:
         coords = request.coords
         photos = request.photos
         with connect() as con:

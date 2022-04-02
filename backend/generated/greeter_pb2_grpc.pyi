@@ -9,24 +9,24 @@ import typing
 
 class UsersStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    register: grpc.UnaryUnaryMultiCallable[
+    Register: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.RegisterRequest,
         greeter_pb2.User]
 
-    login: grpc.UnaryUnaryMultiCallable[
+    Login: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.LoginRequest,
         greeter_pb2.User]
 
 
 class UsersServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def register(self,
+    def Register(self,
         request: greeter_pb2.RegisterRequest,
         context: grpc.ServicerContext,
     ) -> greeter_pb2.User: ...
 
     @abc.abstractmethod
-    def login(self,
+    def Login(self,
         request: greeter_pb2.LoginRequest,
         context: grpc.ServicerContext,
     ) -> greeter_pb2.User: ...
@@ -37,24 +37,24 @@ def add_UsersServicer_to_server(servicer: UsersServicer, server: grpc.Server) ->
 class TripsStub:
     """define an interface to implement"""
     def __init__(self, channel: grpc.Channel) -> None: ...
-    tripsOf: grpc.UnaryUnaryMultiCallable[
+    TripsOf: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.TripsOfRequest,
         greeter_pb2.TripsOfResponse]
     """each method takes one parameter message and returns one response message"""
 
-    addTrip: grpc.UnaryUnaryMultiCallable[
+    AddTrip: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.AddTripRequest,
         greeter_pb2.Result]
 
-    deleteTrip: grpc.UnaryUnaryMultiCallable[
+    DeleteTrip: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.DeleteTripRequest,
         greeter_pb2.Result]
 
-    addPhotoToDestination: grpc.UnaryUnaryMultiCallable[
+    AddPhotoToDestination: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.AddDestPhotoRequest,
         greeter_pb2.Result]
 
-    photosOf: grpc.UnaryStreamMultiCallable[
+    PhotosOf: grpc.UnaryStreamMultiCallable[
         greeter_pb2.PhotosOfRequest,
         greeter_pb2.PhotosOfResponse]
     """this method returns a stream of messages
@@ -65,7 +65,7 @@ class TripsStub:
 class TripsServicer(metaclass=abc.ABCMeta):
     """define an interface to implement"""
     @abc.abstractmethod
-    def tripsOf(self,
+    def TripsOf(self,
         request: greeter_pb2.TripsOfRequest,
         context: grpc.ServicerContext,
     ) -> greeter_pb2.TripsOfResponse:
@@ -73,25 +73,25 @@ class TripsServicer(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def addTrip(self,
+    def AddTrip(self,
         request: greeter_pb2.AddTripRequest,
         context: grpc.ServicerContext,
     ) -> greeter_pb2.Result: ...
 
     @abc.abstractmethod
-    def deleteTrip(self,
+    def DeleteTrip(self,
         request: greeter_pb2.DeleteTripRequest,
         context: grpc.ServicerContext,
     ) -> greeter_pb2.Result: ...
 
     @abc.abstractmethod
-    def addPhotoToDestination(self,
+    def AddPhotoToDestination(self,
         request: greeter_pb2.AddDestPhotoRequest,
         context: grpc.ServicerContext,
     ) -> greeter_pb2.Result: ...
 
     @abc.abstractmethod
-    def photosOf(self,
+    def PhotosOf(self,
         request: greeter_pb2.PhotosOfRequest,
         context: grpc.ServicerContext,
     ) -> typing.Iterator[greeter_pb2.PhotosOfResponse]:

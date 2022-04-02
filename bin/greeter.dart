@@ -17,7 +17,7 @@ Future<void> main() async {
     password: 'hunter2',
   ));
   await userClient.login(LoginRequest(
-    identity: 'foo',
+    identity: 'foobar',
     password: 'hunter2',
   ));
   final trips = await tripClient.tripsOf(TripsOfRequest(userId: 2));

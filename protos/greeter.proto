@@ -5,8 +5,6 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-// option optimize_for = LITE_RUNTIME;
-
 message Result {
   repeated string errors = 1;
 }
@@ -45,20 +43,20 @@ message Photo {
 }
 
 service Users {
-  rpc register (RegisterRequest) returns (User);
-  rpc login (LoginRequest) returns (User);
+  rpc Register (RegisterRequest) returns (User);
+  rpc Login (LoginRequest) returns (User);
 }
 
 // define an interface to implement
 service Trips {
   // each method takes one parameter message and returns one response message
-  rpc tripsOf (TripsOfRequest) returns (TripsOfResponse);
-  rpc addTrip (AddTripRequest) returns (Result);
-  rpc deleteTrip (DeleteTripRequest) returns (Result);
-  rpc addPhotoToDestination (AddDestPhotoRequest) returns (Result);
+  rpc TripsOf (TripsOfRequest) returns (TripsOfResponse);
+  rpc AddTrip (AddTripRequest) returns (Result);
+  rpc DeleteTrip (DeleteTripRequest) returns (Result);
+  rpc AddPhotoToDestination (AddDestPhotoRequest) returns (Result);
   // this method returns a stream of messages
   // in both Dart and Python, this can be achieved via generators
-  rpc photosOf (PhotosOfRequest) returns (stream PhotosOfResponse);
+  rpc PhotosOf (PhotosOfRequest) returns (stream PhotosOfResponse);
 }
 
 message RegisterRequest {

@@ -15,11 +15,11 @@ export 'greeter.pb.dart';
 
 class UsersClient extends $grpc.Client {
   static final _$register = $grpc.ClientMethod<$0.RegisterRequest, $0.User>(
-      '/Users/register',
+      '/Users/Register',
       ($0.RegisterRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.User.fromBuffer(value));
   static final _$login = $grpc.ClientMethod<$0.LoginRequest, $0.User>(
-      '/Users/login',
+      '/Users/Login',
       ($0.LoginRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.User.fromBuffer(value));
 
@@ -44,14 +44,14 @@ abstract class UsersServiceBase extends $grpc.Service {
 
   UsersServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.RegisterRequest, $0.User>(
-        'register',
+        'Register',
         register_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.RegisterRequest.fromBuffer(value),
         ($0.User value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.LoginRequest, $0.User>(
-        'login',
+        'Login',
         login_Pre,
         false,
         false,
@@ -77,27 +77,27 @@ abstract class UsersServiceBase extends $grpc.Service {
 class TripsClient extends $grpc.Client {
   static final _$tripsOf =
       $grpc.ClientMethod<$0.TripsOfRequest, $0.TripsOfResponse>(
-          '/Trips/tripsOf',
+          '/Trips/TripsOf',
           ($0.TripsOfRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.TripsOfResponse.fromBuffer(value));
   static final _$addTrip = $grpc.ClientMethod<$0.AddTripRequest, $0.Result>(
-      '/Trips/addTrip',
+      '/Trips/AddTrip',
       ($0.AddTripRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
   static final _$deleteTrip =
       $grpc.ClientMethod<$0.DeleteTripRequest, $0.Result>(
-          '/Trips/deleteTrip',
+          '/Trips/DeleteTrip',
           ($0.DeleteTripRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
   static final _$addPhotoToDestination =
       $grpc.ClientMethod<$0.AddDestPhotoRequest, $0.Result>(
-          '/Trips/addPhotoToDestination',
+          '/Trips/AddPhotoToDestination',
           ($0.AddDestPhotoRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
   static final _$photosOf =
       $grpc.ClientMethod<$0.PhotosOfRequest, $0.PhotosOfResponse>(
-          '/Trips/photosOf',
+          '/Trips/PhotosOf',
           ($0.PhotosOfRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.PhotosOfResponse.fromBuffer(value));
@@ -141,28 +141,28 @@ abstract class TripsServiceBase extends $grpc.Service {
 
   TripsServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.TripsOfRequest, $0.TripsOfResponse>(
-        'tripsOf',
+        'TripsOf',
         tripsOf_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.TripsOfRequest.fromBuffer(value),
         ($0.TripsOfResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.AddTripRequest, $0.Result>(
-        'addTrip',
+        'AddTrip',
         addTrip_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.AddTripRequest.fromBuffer(value),
         ($0.Result value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.DeleteTripRequest, $0.Result>(
-        'deleteTrip',
+        'DeleteTrip',
         deleteTrip_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.DeleteTripRequest.fromBuffer(value),
         ($0.Result value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.AddDestPhotoRequest, $0.Result>(
-        'addPhotoToDestination',
+        'AddPhotoToDestination',
         addPhotoToDestination_Pre,
         false,
         false,
@@ -170,7 +170,7 @@ abstract class TripsServiceBase extends $grpc.Service {
             $0.AddDestPhotoRequest.fromBuffer(value),
         ($0.Result value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.PhotosOfRequest, $0.PhotosOfResponse>(
-        'photosOf',
+        'PhotosOf',
         photosOf_Pre,
         false,
         true,
