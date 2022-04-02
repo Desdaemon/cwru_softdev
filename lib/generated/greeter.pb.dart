@@ -9,138 +9,21 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class Coord extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Coord', createEmptyInstance: create)
-    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lat', $pb.PbFieldType.OD)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'long', $pb.PbFieldType.OD)
-    ..hasRequiredFields = false
-  ;
-
-  Coord._() : super();
-  factory Coord({
-    $core.double? lat,
-    $core.double? long,
-  }) {
-    final _result = create();
-    if (lat != null) {
-      _result.lat = lat;
-    }
-    if (long != null) {
-      _result.long = long;
-    }
-    return _result;
-  }
-  factory Coord.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Coord.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Coord clone() => Coord()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Coord copyWith(void Function(Coord) updates) => super.copyWith((message) => updates(message as Coord)) as Coord; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static Coord create() => Coord._();
-  Coord createEmptyInstance() => create();
-  static $pb.PbList<Coord> createRepeated() => $pb.PbList<Coord>();
-  @$core.pragma('dart2js:noInline')
-  static Coord getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Coord>(create);
-  static Coord? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.double get lat => $_getN(0);
-  @$pb.TagNumber(1)
-  set lat($core.double v) { $_setDouble(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasLat() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearLat() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.double get long => $_getN(1);
-  @$pb.TagNumber(2)
-  set long($core.double v) { $_setDouble(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasLong() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearLong() => clearField(2);
-}
-
-class Result_Error extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Result.Error', createEmptyInstance: create)
-    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'errors')
-    ..hasRequiredFields = false
-  ;
-
-  Result_Error._() : super();
-  factory Result_Error({
-    $core.Iterable<$core.String>? errors,
-  }) {
-    final _result = create();
-    if (errors != null) {
-      _result.errors.addAll(errors);
-    }
-    return _result;
-  }
-  factory Result_Error.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Result_Error.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Result_Error clone() => Result_Error()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Result_Error copyWith(void Function(Result_Error) updates) => super.copyWith((message) => updates(message as Result_Error)) as Result_Error; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static Result_Error create() => Result_Error._();
-  Result_Error createEmptyInstance() => create();
-  static $pb.PbList<Result_Error> createRepeated() => $pb.PbList<Result_Error>();
-  @$core.pragma('dart2js:noInline')
-  static Result_Error getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Result_Error>(create);
-  static Result_Error? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.List<$core.String> get errors => $_getList(0);
-}
-
-enum Result_Result {
-  success, 
-  reason, 
-  notSet
-}
+import 'google/protobuf/timestamp.pb.dart' as $1;
 
 class Result extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, Result_Result> _Result_ResultByTag = {
-    1 : Result_Result.success,
-    2 : Result_Result.reason,
-    0 : Result_Result.notSet
-  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Result', createEmptyInstance: create)
-    ..oo(0, [1, 2])
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
-    ..aOM<Result_Error>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reason', subBuilder: Result_Error.create)
+    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'errors')
     ..hasRequiredFields = false
   ;
 
   Result._() : super();
   factory Result({
-    $core.bool? success,
-    Result_Error? reason,
+    $core.Iterable<$core.String>? errors,
   }) {
     final _result = create();
-    if (success != null) {
-      _result.success = success;
-    }
-    if (reason != null) {
-      _result.reason = reason;
+    if (errors != null) {
+      _result.errors.addAll(errors);
     }
     return _result;
   }
@@ -165,28 +48,148 @@ class Result extends $pb.GeneratedMessage {
   static Result getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Result>(create);
   static Result? _defaultInstance;
 
-  Result_Result whichResult() => _Result_ResultByTag[$_whichOneof(0)]!;
-  void clearResult() => clearField($_whichOneof(0));
+  @$pb.TagNumber(1)
+  $core.List<$core.String> get errors => $_getList(0);
+}
+
+class Coords extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Coords', createEmptyInstance: create)
+    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lat', $pb.PbFieldType.OD)
+    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lon', $pb.PbFieldType.OD)
+    ..hasRequiredFields = false
+  ;
+
+  Coords._() : super();
+  factory Coords({
+    $core.double? lat,
+    $core.double? lon,
+  }) {
+    final _result = create();
+    if (lat != null) {
+      _result.lat = lat;
+    }
+    if (lon != null) {
+      _result.lon = lon;
+    }
+    return _result;
+  }
+  factory Coords.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Coords.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Coords clone() => Coords()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Coords copyWith(void Function(Coords) updates) => super.copyWith((message) => updates(message as Coords)) as Coords; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Coords create() => Coords._();
+  Coords createEmptyInstance() => create();
+  static $pb.PbList<Coords> createRepeated() => $pb.PbList<Coords>();
+  @$core.pragma('dart2js:noInline')
+  static Coords getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Coords>(create);
+  static Coords? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
+  $core.double get lat => $_getN(0);
   @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
+  set lat($core.double v) { $_setDouble(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
+  $core.bool hasLat() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
+  void clearLat() => clearField(1);
 
   @$pb.TagNumber(2)
-  Result_Error get reason => $_getN(1);
+  $core.double get lon => $_getN(1);
   @$pb.TagNumber(2)
-  set reason(Result_Error v) { setField(2, v); }
+  set lon($core.double v) { $_setDouble(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasReason() => $_has(1);
+  $core.bool hasLon() => $_has(1);
   @$pb.TagNumber(2)
-  void clearReason() => clearField(2);
-  @$pb.TagNumber(2)
-  Result_Error ensureReason() => $_ensure(1);
+  void clearLon() => clearField(2);
+}
+
+class Destination extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Destination', createEmptyInstance: create)
+    ..aOM<Coords>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coords', subBuilder: Coords.create)
+    ..aOM<$1.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'visitTime', subBuilder: $1.Timestamp.create)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..hasRequiredFields = false
+  ;
+
+  Destination._() : super();
+  factory Destination({
+    Coords? coords,
+    $1.Timestamp? visitTime,
+    $core.String? description,
+  }) {
+    final _result = create();
+    if (coords != null) {
+      _result.coords = coords;
+    }
+    if (visitTime != null) {
+      _result.visitTime = visitTime;
+    }
+    if (description != null) {
+      _result.description = description;
+    }
+    return _result;
+  }
+  factory Destination.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Destination.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Destination clone() => Destination()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Destination copyWith(void Function(Destination) updates) => super.copyWith((message) => updates(message as Destination)) as Destination; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Destination create() => Destination._();
+  Destination createEmptyInstance() => create();
+  static $pb.PbList<Destination> createRepeated() => $pb.PbList<Destination>();
+  @$core.pragma('dart2js:noInline')
+  static Destination getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Destination>(create);
+  static Destination? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Coords get coords => $_getN(0);
+  @$pb.TagNumber(1)
+  set coords(Coords v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasCoords() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCoords() => clearField(1);
+  @$pb.TagNumber(1)
+  Coords ensureCoords() => $_ensure(0);
+
+  @$pb.TagNumber(3)
+  $1.Timestamp get visitTime => $_getN(1);
+  @$pb.TagNumber(3)
+  set visitTime($1.Timestamp v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasVisitTime() => $_has(1);
+  @$pb.TagNumber(3)
+  void clearVisitTime() => clearField(3);
+  @$pb.TagNumber(3)
+  $1.Timestamp ensureVisitTime() => $_ensure(1);
+
+  @$pb.TagNumber(4)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(4)
+  set description($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(4)
+  void clearDescription() => clearField(4);
 }
 
 class User extends $pb.GeneratedMessage {
@@ -268,7 +271,9 @@ class Trip extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Trip', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tripId', $pb.PbFieldType.OU3)
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId', $pb.PbFieldType.OU3)
-    ..pc<Coord>(99, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stops', $pb.PbFieldType.PM, subBuilder: Coord.create)
+    ..aOM<$1.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'startDate', subBuilder: $1.Timestamp.create)
+    ..aOM<$1.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'endDate', subBuilder: $1.Timestamp.create)
+    ..pc<Destination>(99, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stops', $pb.PbFieldType.PM, subBuilder: Destination.create)
     ..hasRequiredFields = false
   ;
 
@@ -276,7 +281,9 @@ class Trip extends $pb.GeneratedMessage {
   factory Trip({
     $core.int? tripId,
     $core.int? userId,
-    $core.Iterable<Coord>? stops,
+    $1.Timestamp? startDate,
+    $1.Timestamp? endDate,
+    $core.Iterable<Destination>? stops,
   }) {
     final _result = create();
     if (tripId != null) {
@@ -284,6 +291,12 @@ class Trip extends $pb.GeneratedMessage {
     }
     if (userId != null) {
       _result.userId = userId;
+    }
+    if (startDate != null) {
+      _result.startDate = startDate;
+    }
+    if (endDate != null) {
+      _result.endDate = endDate;
     }
     if (stops != null) {
       _result.stops.addAll(stops);
@@ -329,29 +342,39 @@ class Trip extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearUserId() => clearField(2);
 
-  @$pb.TagNumber(99)
-  $core.List<Coord> get stops => $_getList(2);
-}
+  @$pb.TagNumber(3)
+  $1.Timestamp get startDate => $_getN(2);
+  @$pb.TagNumber(3)
+  set startDate($1.Timestamp v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasStartDate() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearStartDate() => clearField(3);
+  @$pb.TagNumber(3)
+  $1.Timestamp ensureStartDate() => $_ensure(2);
 
-enum Photo_Source {
-  data, 
-  url, 
-  notSet
+  @$pb.TagNumber(4)
+  $1.Timestamp get endDate => $_getN(3);
+  @$pb.TagNumber(4)
+  set endDate($1.Timestamp v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasEndDate() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearEndDate() => clearField(4);
+  @$pb.TagNumber(4)
+  $1.Timestamp ensureEndDate() => $_ensure(3);
+
+  @$pb.TagNumber(99)
+  $core.List<Destination> get stops => $_getList(4);
 }
 
 class Photo extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, Photo_Source> _Photo_SourceByTag = {
-    99 : Photo_Source.data,
-    100 : Photo_Source.url,
-    0 : Photo_Source.notSet
-  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Photo', createEmptyInstance: create)
-    ..oo(0, [99, 100])
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoId', $pb.PbFieldType.OU3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extension')
-    ..a<$core.List<$core.int>>(99, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'data', $pb.PbFieldType.OY)
-    ..aOS(100, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'url')
+    ..aOM<$1.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dateTaken', subBuilder: $1.Timestamp.create)
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'url')
     ..hasRequiredFields = false
   ;
 
@@ -360,7 +383,7 @@ class Photo extends $pb.GeneratedMessage {
     $core.int? photoId,
     $core.String? name,
     $core.String? extension_3,
-    $core.List<$core.int>? data,
+    $1.Timestamp? dateTaken,
     $core.String? url,
   }) {
     final _result = create();
@@ -373,8 +396,8 @@ class Photo extends $pb.GeneratedMessage {
     if (extension_3 != null) {
       _result.extension_3 = extension_3;
     }
-    if (data != null) {
-      _result.data = data;
+    if (dateTaken != null) {
+      _result.dateTaken = dateTaken;
     }
     if (url != null) {
       _result.url = url;
@@ -401,9 +424,6 @@ class Photo extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static Photo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Photo>(create);
   static Photo? _defaultInstance;
-
-  Photo_Source whichSource() => _Photo_SourceByTag[$_whichOneof(0)]!;
-  void clearSource() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
   $core.int get photoId => $_getIZ(0);
@@ -432,23 +452,25 @@ class Photo extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearExtension_3() => clearField(3);
 
-  @$pb.TagNumber(99)
-  $core.List<$core.int> get data => $_getN(3);
-  @$pb.TagNumber(99)
-  set data($core.List<$core.int> v) { $_setBytes(3, v); }
-  @$pb.TagNumber(99)
-  $core.bool hasData() => $_has(3);
-  @$pb.TagNumber(99)
-  void clearData() => clearField(99);
+  @$pb.TagNumber(4)
+  $1.Timestamp get dateTaken => $_getN(3);
+  @$pb.TagNumber(4)
+  set dateTaken($1.Timestamp v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasDateTaken() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearDateTaken() => clearField(4);
+  @$pb.TagNumber(4)
+  $1.Timestamp ensureDateTaken() => $_ensure(3);
 
-  @$pb.TagNumber(100)
+  @$pb.TagNumber(5)
   $core.String get url => $_getSZ(4);
-  @$pb.TagNumber(100)
+  @$pb.TagNumber(5)
   set url($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(100)
+  @$pb.TagNumber(5)
   $core.bool hasUrl() => $_has(4);
-  @$pb.TagNumber(100)
-  void clearUrl() => clearField(100);
+  @$pb.TagNumber(5)
+  void clearUrl() => clearField(5);
 }
 
 class RegisterRequest extends $pb.GeneratedMessage {
@@ -590,21 +612,21 @@ class LoginRequest extends $pb.GeneratedMessage {
 class AddTripRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddTripRequest', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId', $pb.PbFieldType.OU3)
-    ..pc<Coord>(99, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stops', $pb.PbFieldType.PM, subBuilder: Coord.create)
+    ..pc<Trip>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'trips', $pb.PbFieldType.PM, subBuilder: Trip.create)
     ..hasRequiredFields = false
   ;
 
   AddTripRequest._() : super();
   factory AddTripRequest({
     $core.int? userId,
-    $core.Iterable<Coord>? stops,
+    $core.Iterable<Trip>? trips,
   }) {
     final _result = create();
     if (userId != null) {
       _result.userId = userId;
     }
-    if (stops != null) {
-      _result.stops.addAll(stops);
+    if (trips != null) {
+      _result.trips.addAll(trips);
     }
     return _result;
   }
@@ -638,8 +660,8 @@ class AddTripRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearUserId() => clearField(1);
 
-  @$pb.TagNumber(99)
-  $core.List<Coord> get stops => $_getList(1);
+  @$pb.TagNumber(2)
+  $core.List<Trip> get trips => $_getList(1);
 }
 
 class DeleteTripRequest extends $pb.GeneratedMessage {
@@ -703,122 +725,61 @@ class DeleteTripRequest extends $pb.GeneratedMessage {
   void clearTripId() => clearField(2);
 }
 
-enum AddPhotoRequest_Source {
-  data, 
-  url, 
-  notSet
-}
-
-class AddPhotoRequest extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, AddPhotoRequest_Source> _AddPhotoRequest_SourceByTag = {
-    99 : AddPhotoRequest_Source.data,
-    100 : AddPhotoRequest_Source.url,
-    0 : AddPhotoRequest_Source.notSet
-  };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddPhotoRequest', createEmptyInstance: create)
-    ..oo(0, [99, 100])
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId', $pb.PbFieldType.OU3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extension')
-    ..a<$core.List<$core.int>>(99, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'data', $pb.PbFieldType.OY)
-    ..aOS(100, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'url')
+class AddDestPhotoRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddDestPhotoRequest', createEmptyInstance: create)
+    ..aOM<Coords>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coords', subBuilder: Coords.create)
+    ..pc<Photo>(99, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photos', $pb.PbFieldType.PM, subBuilder: Photo.create)
     ..hasRequiredFields = false
   ;
 
-  AddPhotoRequest._() : super();
-  factory AddPhotoRequest({
-    $core.int? userId,
-    $core.String? name,
-    $core.String? extension_3,
-    $core.List<$core.int>? data,
-    $core.String? url,
+  AddDestPhotoRequest._() : super();
+  factory AddDestPhotoRequest({
+    Coords? coords,
+    $core.Iterable<Photo>? photos,
   }) {
     final _result = create();
-    if (userId != null) {
-      _result.userId = userId;
+    if (coords != null) {
+      _result.coords = coords;
     }
-    if (name != null) {
-      _result.name = name;
-    }
-    if (extension_3 != null) {
-      _result.extension_3 = extension_3;
-    }
-    if (data != null) {
-      _result.data = data;
-    }
-    if (url != null) {
-      _result.url = url;
+    if (photos != null) {
+      _result.photos.addAll(photos);
     }
     return _result;
   }
-  factory AddPhotoRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddPhotoRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory AddDestPhotoRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddDestPhotoRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddPhotoRequest clone() => AddPhotoRequest()..mergeFromMessage(this);
+  AddDestPhotoRequest clone() => AddDestPhotoRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddPhotoRequest copyWith(void Function(AddPhotoRequest) updates) => super.copyWith((message) => updates(message as AddPhotoRequest)) as AddPhotoRequest; // ignore: deprecated_member_use
+  AddDestPhotoRequest copyWith(void Function(AddDestPhotoRequest) updates) => super.copyWith((message) => updates(message as AddDestPhotoRequest)) as AddDestPhotoRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddPhotoRequest create() => AddPhotoRequest._();
-  AddPhotoRequest createEmptyInstance() => create();
-  static $pb.PbList<AddPhotoRequest> createRepeated() => $pb.PbList<AddPhotoRequest>();
+  static AddDestPhotoRequest create() => AddDestPhotoRequest._();
+  AddDestPhotoRequest createEmptyInstance() => create();
+  static $pb.PbList<AddDestPhotoRequest> createRepeated() => $pb.PbList<AddDestPhotoRequest>();
   @$core.pragma('dart2js:noInline')
-  static AddPhotoRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPhotoRequest>(create);
-  static AddPhotoRequest? _defaultInstance;
-
-  AddPhotoRequest_Source whichSource() => _AddPhotoRequest_SourceByTag[$_whichOneof(0)]!;
-  void clearSource() => clearField($_whichOneof(0));
+  static AddDestPhotoRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddDestPhotoRequest>(create);
+  static AddDestPhotoRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get userId => $_getIZ(0);
+  Coords get coords => $_getN(0);
   @$pb.TagNumber(1)
-  set userId($core.int v) { $_setUnsignedInt32(0, v); }
+  set coords(Coords v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasUserId() => $_has(0);
+  $core.bool hasCoords() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUserId() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get name => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set name($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasName() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearName() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get extension_3 => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set extension_3($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasExtension_3() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearExtension_3() => clearField(3);
+  void clearCoords() => clearField(1);
+  @$pb.TagNumber(1)
+  Coords ensureCoords() => $_ensure(0);
 
   @$pb.TagNumber(99)
-  $core.List<$core.int> get data => $_getN(3);
-  @$pb.TagNumber(99)
-  set data($core.List<$core.int> v) { $_setBytes(3, v); }
-  @$pb.TagNumber(99)
-  $core.bool hasData() => $_has(3);
-  @$pb.TagNumber(99)
-  void clearData() => clearField(99);
-
-  @$pb.TagNumber(100)
-  $core.String get url => $_getSZ(4);
-  @$pb.TagNumber(100)
-  set url($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(100)
-  $core.bool hasUrl() => $_has(4);
-  @$pb.TagNumber(100)
-  void clearUrl() => clearField(100);
+  $core.List<Photo> get photos => $_getList(1);
 }
 
 class TripsOfRequest extends $pb.GeneratedMessage {

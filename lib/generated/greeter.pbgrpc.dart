@@ -90,10 +90,11 @@ class TripsClient extends $grpc.Client {
           '/Trips/deleteTrip',
           ($0.DeleteTripRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
-  static final _$addPhoto = $grpc.ClientMethod<$0.AddPhotoRequest, $0.Result>(
-      '/Trips/addPhoto',
-      ($0.AddPhotoRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
+  static final _$addPhotoToDestination =
+      $grpc.ClientMethod<$0.AddDestPhotoRequest, $0.Result>(
+          '/Trips/addPhotoToDestination',
+          ($0.AddDestPhotoRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Result.fromBuffer(value));
   static final _$photosOf =
       $grpc.ClientMethod<$0.PhotosOfRequest, $0.PhotosOfResponse>(
           '/Trips/photosOf',
@@ -121,9 +122,10 @@ class TripsClient extends $grpc.Client {
     return $createUnaryCall(_$deleteTrip, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.Result> addPhoto($0.AddPhotoRequest request,
+  $grpc.ResponseFuture<$0.Result> addPhotoToDestination(
+      $0.AddDestPhotoRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$addPhoto, request, options: options);
+    return $createUnaryCall(_$addPhotoToDestination, request, options: options);
   }
 
   $grpc.ResponseStream<$0.PhotosOfResponse> photosOf($0.PhotosOfRequest request,
@@ -159,12 +161,13 @@ abstract class TripsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.DeleteTripRequest.fromBuffer(value),
         ($0.Result value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.AddPhotoRequest, $0.Result>(
-        'addPhoto',
-        addPhoto_Pre,
+    $addMethod($grpc.ServiceMethod<$0.AddDestPhotoRequest, $0.Result>(
+        'addPhotoToDestination',
+        addPhotoToDestination_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.AddPhotoRequest.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $0.AddDestPhotoRequest.fromBuffer(value),
         ($0.Result value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.PhotosOfRequest, $0.PhotosOfResponse>(
         'photosOf',
@@ -190,9 +193,9 @@ abstract class TripsServiceBase extends $grpc.Service {
     return deleteTrip(call, await request);
   }
 
-  $async.Future<$0.Result> addPhoto_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.AddPhotoRequest> request) async {
-    return addPhoto(call, await request);
+  $async.Future<$0.Result> addPhotoToDestination_Pre($grpc.ServiceCall call,
+      $async.Future<$0.AddDestPhotoRequest> request) async {
+    return addPhotoToDestination(call, await request);
   }
 
   $async.Stream<$0.PhotosOfResponse> photosOf_Pre($grpc.ServiceCall call,
@@ -206,8 +209,8 @@ abstract class TripsServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.AddTripRequest request);
   $async.Future<$0.Result> deleteTrip(
       $grpc.ServiceCall call, $0.DeleteTripRequest request);
-  $async.Future<$0.Result> addPhoto(
-      $grpc.ServiceCall call, $0.AddPhotoRequest request);
+  $async.Future<$0.Result> addPhotoToDestination(
+      $grpc.ServiceCall call, $0.AddDestPhotoRequest request);
   $async.Stream<$0.PhotosOfResponse> photosOf(
       $grpc.ServiceCall call, $0.PhotosOfRequest request);
 }

@@ -2,6 +2,7 @@ import grpc
 import sys
 import logging
 import sqlite3
+from google.protobuf.timestamp_pb2 import Timestamp
 from typing import Iterator, Iterable, Any
 from concurrent import futures
 from generated import greeter_pb2_grpc
@@ -15,8 +16,8 @@ def prepareDb(dbpath: str):
         pass # truncate and close immediately
 
 def sql(query: str,
-        params: tuple | Iterable[Any] = (),
-        with_con: sqlite3.Connection | None = None) -> list[tuple]:
+        params = (),
+        with_con = None) -> list[tuple]:
     """
     Wrapper around sqlite.Connection.{execute, executemany}.
 
@@ -99,11 +100,11 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         )
 
         # handle "group by" here, since SQLite does not do it for us
-        trips: dict[str, list[Coord]] = {}
+        trips: dict[str, list[Destination]] = {}
         for trip_id, lat, lon in stops:
             if not trips[trip_id]:
                 trips[trip_id] = []
-            trips[trip_id].append(Coord(lat=lat, long=lon))
+            trips[trip_id].append(Destination(coords=Coords(lat=lat, lon=lon)))
     
         return TripsOfResponse(trips=[
             Trip(trip_id=int(trip_id), stops=stops)
@@ -142,35 +143,31 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
 
     def addTrip(self, request: AddTripRequest, context: grpc.ServicerContext) -> Result:
         userid = request.user_id
-        logging.info(f'{userid=} {[*request.stops]=}')
+        logging.info(f'{userid=} {[*request.trips]=}')
         with sqlite3.connect(DBPATH) as con:
             # manually open a transaction here, autocommit at the end of the with statement
-            sql(
-                'insert into Destinations(lat, lon) values(?, ?)',
-                [ (stop.lat, stop.long) for stop in request.stops ],
-                con
-            )
-            trip = sql(
-                'insert into Trips(user_id) values(?) returning trip_id',
-                (userid,),
-                con
-            )
-            assert len(trip) == 1, 'expected to add a single trip only'
-            tripid, = trip[0]
-            sql(
-                'insert into TripDestinations(trip_id, lat, lon) values (?, ?, ?)',
-                [
-                    (tripid, stop.lat, stop.long)
-                    for stop in request.stops
-                ],
-                con
-            )
-            return Result(success=True)
-
-        return Result(
-            success=False, 
-            reason=Result.Error(errors=('Could not connect to the database.',))
-        )
+            for trip in request.trips:
+                sql(
+                    'insert into Destinations(lat, lon) values(?, ?)',
+                    [ (stop.coords.lat, stop.coords.lon) for stop in trip.stops ],
+                    con
+                )
+                new_trip = sql(
+                    'insert into Trips(user_id) values(?) returning trip_id',
+                    (userid,),
+                    con
+                )
+                assert len(new_trip) == 1, 'expected to add a single trip only'
+                tripid, = new_trip[0]
+                sql(
+                    'insert into TripDestinations(trip_id, lat, lon) values (?, ?, ?)',
+                    [
+                        (tripid, stop.coords.lat, stop.coords.lon)
+                        for stop in trip.stops
+                    ],
+                    con
+                )
+        return Result()
 
 
     def deleteTrip(self, request: DeleteTripRequest, context: grpc.ServicerContext) -> Result:
@@ -180,15 +177,31 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
             'delete from Trips where user_id = ? and trip_id = ?',
             (userid, tripid)
         )
-        return Result(success=True)
+        return Result()
 
-    def addPhoto(self, request: AddPhotoRequest, context: grpc.ServicerContext) -> Result:
-        userid = request.user_id
-        name = request.name
-        url = request.url
-        assert url, 'url should not be empty'
-        logging.info(f'{userid=} {name=} {url=}')
-        return super().addPhoto(request, context)
+    
+    def addPhotoToDestination(self, request: AddDestPhotoRequest, context: grpc.ServicerContext) -> Result:
+        coords = request.coords
+        photos = request.photos
+        with sqlite3.connect(DBPATH) as con:
+            photoids = sql(
+                'insert into Photos(name, url, date_taken) values (?, ?, ?) returning photo_id',
+                [
+                    (photo.name, photo.url, photo.date_taken)
+                    for photo in photos
+                ],
+                con
+            )
+            assert len(photoids) == len(photos), 'expect all photos to be added'
+            sql(
+                'insert into DestinationPhotos(lat, lon, photo_id) values (?, ?, ?)',
+                [
+                    (coords.lat, coords.lon, id)
+                    for id, in photoids
+                ],
+                con
+            )
+        return Result()
 
 
 def serve():
@@ -197,6 +210,7 @@ def serve():
         with sqlite3.connect(DBPATH) as con:
             con.executescript(f.read())
 
+    sqlite3.register_adapter(Timestamp, lambda x: x.SerializeToString())
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     greeter_pb2_grpc.add_TripsServicer_to_server(TripsServicer(), server)
     greeter_pb2_grpc.add_UsersServicer_to_server(UsersServicer(), server)

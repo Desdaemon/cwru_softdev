@@ -8,40 +8,39 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use coordDescriptor instead')
-const Coord$json = const {
-  '1': 'Coord',
-  '2': const [
-    const {'1': 'lat', '3': 1, '4': 1, '5': 1, '10': 'lat'},
-    const {'1': 'long', '3': 2, '4': 1, '5': 1, '10': 'long'},
-  ],
-};
-
-/// Descriptor for `Coord`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List coordDescriptor = $convert.base64Decode('CgVDb29yZBIQCgNsYXQYASABKAFSA2xhdBISCgRsb25nGAIgASgBUgRsb25n');
 @$core.Deprecated('Use resultDescriptor instead')
 const Result$json = const {
   '1': 'Result',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '9': 0, '10': 'success'},
-    const {'1': 'reason', '3': 2, '4': 1, '5': 11, '6': '.Result.Error', '9': 0, '10': 'reason'},
-  ],
-  '3': const [Result_Error$json],
-  '8': const [
-    const {'1': 'result'},
-  ],
-};
-
-@$core.Deprecated('Use resultDescriptor instead')
-const Result_Error$json = const {
-  '1': 'Error',
   '2': const [
     const {'1': 'errors', '3': 1, '4': 3, '5': 9, '10': 'errors'},
   ],
 };
 
 /// Descriptor for `Result`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List resultDescriptor = $convert.base64Decode('CgZSZXN1bHQSGgoHc3VjY2VzcxgBIAEoCEgAUgdzdWNjZXNzEicKBnJlYXNvbhgCIAEoCzINLlJlc3VsdC5FcnJvckgAUgZyZWFzb24aHwoFRXJyb3ISFgoGZXJyb3JzGAEgAygJUgZlcnJvcnNCCAoGcmVzdWx0');
+final $typed_data.Uint8List resultDescriptor = $convert.base64Decode('CgZSZXN1bHQSFgoGZXJyb3JzGAEgAygJUgZlcnJvcnM=');
+@$core.Deprecated('Use coordsDescriptor instead')
+const Coords$json = const {
+  '1': 'Coords',
+  '2': const [
+    const {'1': 'lat', '3': 1, '4': 1, '5': 1, '10': 'lat'},
+    const {'1': 'lon', '3': 2, '4': 1, '5': 1, '10': 'lon'},
+  ],
+};
+
+/// Descriptor for `Coords`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List coordsDescriptor = $convert.base64Decode('CgZDb29yZHMSEAoDbGF0GAEgASgBUgNsYXQSEAoDbG9uGAIgASgBUgNsb24=');
+@$core.Deprecated('Use destinationDescriptor instead')
+const Destination$json = const {
+  '1': 'Destination',
+  '2': const [
+    const {'1': 'coords', '3': 1, '4': 1, '5': 11, '6': '.Coords', '10': 'coords'},
+    const {'1': 'visit_time', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'visitTime'},
+    const {'1': 'description', '3': 4, '4': 1, '5': 9, '10': 'description'},
+  ],
+};
+
+/// Descriptor for `Destination`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List destinationDescriptor = $convert.base64Decode('CgtEZXN0aW5hdGlvbhIfCgZjb29yZHMYASABKAsyBy5Db29yZHNSBmNvb3JkcxI5Cgp2aXNpdF90aW1lGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJdmlzaXRUaW1lEiAKC2Rlc2NyaXB0aW9uGAQgASgJUgtkZXNjcmlwdGlvbg==');
 @$core.Deprecated('Use userDescriptor instead')
 const User$json = const {
   '1': 'User',
@@ -60,12 +59,14 @@ const Trip$json = const {
   '2': const [
     const {'1': 'trip_id', '3': 1, '4': 1, '5': 13, '10': 'tripId'},
     const {'1': 'user_id', '3': 2, '4': 1, '5': 13, '10': 'userId'},
-    const {'1': 'stops', '3': 99, '4': 3, '5': 11, '6': '.Coord', '10': 'stops'},
+    const {'1': 'start_date', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'startDate'},
+    const {'1': 'end_date', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'endDate'},
+    const {'1': 'stops', '3': 99, '4': 3, '5': 11, '6': '.Destination', '10': 'stops'},
   ],
 };
 
 /// Descriptor for `Trip`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List tripDescriptor = $convert.base64Decode('CgRUcmlwEhcKB3RyaXBfaWQYASABKA1SBnRyaXBJZBIXCgd1c2VyX2lkGAIgASgNUgZ1c2VySWQSHAoFc3RvcHMYYyADKAsyBi5Db29yZFIFc3RvcHM=');
+final $typed_data.Uint8List tripDescriptor = $convert.base64Decode('CgRUcmlwEhcKB3RyaXBfaWQYASABKA1SBnRyaXBJZBIXCgd1c2VyX2lkGAIgASgNUgZ1c2VySWQSOQoKc3RhcnRfZGF0ZRgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCXN0YXJ0RGF0ZRI1CghlbmRfZGF0ZRgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSB2VuZERhdGUSIgoFc3RvcHMYYyADKAsyDC5EZXN0aW5hdGlvblIFc3RvcHM=');
 @$core.Deprecated('Use photoDescriptor instead')
 const Photo$json = const {
   '1': 'Photo',
@@ -73,16 +74,13 @@ const Photo$json = const {
     const {'1': 'photo_id', '3': 1, '4': 1, '5': 13, '10': 'photoId'},
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'extension', '3': 3, '4': 1, '5': 9, '10': 'extension'},
-    const {'1': 'data', '3': 99, '4': 1, '5': 12, '9': 0, '10': 'data'},
-    const {'1': 'url', '3': 100, '4': 1, '5': 9, '9': 0, '10': 'url'},
-  ],
-  '8': const [
-    const {'1': 'source'},
+    const {'1': 'date_taken', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'dateTaken'},
+    const {'1': 'url', '3': 5, '4': 1, '5': 9, '10': 'url'},
   ],
 };
 
 /// Descriptor for `Photo`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List photoDescriptor = $convert.base64Decode('CgVQaG90bxIZCghwaG90b19pZBgBIAEoDVIHcGhvdG9JZBISCgRuYW1lGAIgASgJUgRuYW1lEhwKCWV4dGVuc2lvbhgDIAEoCVIJZXh0ZW5zaW9uEhQKBGRhdGEYYyABKAxIAFIEZGF0YRISCgN1cmwYZCABKAlIAFIDdXJsQggKBnNvdXJjZQ==');
+final $typed_data.Uint8List photoDescriptor = $convert.base64Decode('CgVQaG90bxIZCghwaG90b19pZBgBIAEoDVIHcGhvdG9JZBISCgRuYW1lGAIgASgJUgRuYW1lEhwKCWV4dGVuc2lvbhgDIAEoCVIJZXh0ZW5zaW9uEjkKCmRhdGVfdGFrZW4YBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUglkYXRlVGFrZW4SEAoDdXJsGAUgASgJUgN1cmw=');
 @$core.Deprecated('Use registerRequestDescriptor instead')
 const RegisterRequest$json = const {
   '1': 'RegisterRequest',
@@ -111,12 +109,12 @@ const AddTripRequest$json = const {
   '1': 'AddTripRequest',
   '2': const [
     const {'1': 'user_id', '3': 1, '4': 1, '5': 13, '10': 'userId'},
-    const {'1': 'stops', '3': 99, '4': 3, '5': 11, '6': '.Coord', '10': 'stops'},
+    const {'1': 'trips', '3': 2, '4': 3, '5': 11, '6': '.Trip', '10': 'trips'},
   ],
 };
 
 /// Descriptor for `AddTripRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addTripRequestDescriptor = $convert.base64Decode('Cg5BZGRUcmlwUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgNUgZ1c2VySWQSHAoFc3RvcHMYYyADKAsyBi5Db29yZFIFc3RvcHM=');
+final $typed_data.Uint8List addTripRequestDescriptor = $convert.base64Decode('Cg5BZGRUcmlwUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgNUgZ1c2VySWQSGwoFdHJpcHMYAiADKAsyBS5UcmlwUgV0cmlwcw==');
 @$core.Deprecated('Use deleteTripRequestDescriptor instead')
 const DeleteTripRequest$json = const {
   '1': 'DeleteTripRequest',
@@ -128,23 +126,17 @@ const DeleteTripRequest$json = const {
 
 /// Descriptor for `DeleteTripRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List deleteTripRequestDescriptor = $convert.base64Decode('ChFEZWxldGVUcmlwUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgNUgZ1c2VySWQSFwoHdHJpcF9pZBgCIAEoDVIGdHJpcElk');
-@$core.Deprecated('Use addPhotoRequestDescriptor instead')
-const AddPhotoRequest$json = const {
-  '1': 'AddPhotoRequest',
+@$core.Deprecated('Use addDestPhotoRequestDescriptor instead')
+const AddDestPhotoRequest$json = const {
+  '1': 'AddDestPhotoRequest',
   '2': const [
-    const {'1': 'user_id', '3': 1, '4': 1, '5': 13, '10': 'userId'},
-    const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'extension', '3': 3, '4': 1, '5': 9, '10': 'extension'},
-    const {'1': 'data', '3': 99, '4': 1, '5': 12, '9': 0, '10': 'data'},
-    const {'1': 'url', '3': 100, '4': 1, '5': 9, '9': 0, '10': 'url'},
-  ],
-  '8': const [
-    const {'1': 'source'},
+    const {'1': 'coords', '3': 1, '4': 1, '5': 11, '6': '.Coords', '10': 'coords'},
+    const {'1': 'photos', '3': 99, '4': 3, '5': 11, '6': '.Photo', '10': 'photos'},
   ],
 };
 
-/// Descriptor for `AddPhotoRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addPhotoRequestDescriptor = $convert.base64Decode('Cg9BZGRQaG90b1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoDVIGdXNlcklkEhIKBG5hbWUYAiABKAlSBG5hbWUSHAoJZXh0ZW5zaW9uGAMgASgJUglleHRlbnNpb24SFAoEZGF0YRhjIAEoDEgAUgRkYXRhEhIKA3VybBhkIAEoCUgAUgN1cmxCCAoGc291cmNl');
+/// Descriptor for `AddDestPhotoRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addDestPhotoRequestDescriptor = $convert.base64Decode('ChNBZGREZXN0UGhvdG9SZXF1ZXN0Eh8KBmNvb3JkcxgBIAEoCzIHLkNvb3Jkc1IGY29vcmRzEh4KBnBob3RvcxhjIAMoCzIGLlBob3RvUgZwaG90b3M=');
 @$core.Deprecated('Use tripsOfRequestDescriptor instead')
 const TripsOfRequest$json = const {
   '1': 'TripsOfRequest',

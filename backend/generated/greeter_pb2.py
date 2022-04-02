@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,61 +20,23 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rgreeter.proto\"\"\n\x05\x43oord\x12\x0b\n\x03lat\x18\x01 \x01(\x01\x12\x0c\n\x04long\x18\x02 \x01(\x01\"_\n\x06Result\x12\x11\n\x07success\x18\x01 \x01(\x08H\x00\x12\x1f\n\x06reason\x18\x02 \x01(\x0b\x32\r.Result.ErrorH\x00\x1a\x17\n\x05\x45rror\x12\x0e\n\x06\x65rrors\x18\x01 \x03(\tB\x08\n\x06result\"8\n\x04User\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\"?\n\x04Trip\x12\x0f\n\x07trip_id\x18\x01 \x01(\r\x12\x0f\n\x07user_id\x18\x02 \x01(\r\x12\x15\n\x05stops\x18\x63 \x03(\x0b\x32\x06.Coord\"c\n\x05Photo\x12\x10\n\x08photo_id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\textension\x18\x03 \x01(\t\x12\x0e\n\x04\x64\x61ta\x18\x63 \x01(\x0cH\x00\x12\r\n\x03url\x18\x64 \x01(\tH\x00\x42\x08\n\x06source\"D\n\x0fRegisterRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"2\n\x0cLoginRequest\x12\x10\n\x08identity\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"8\n\x0e\x41\x64\x64TripRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x15\n\x05stops\x18\x63 \x03(\x0b\x32\x06.Coord\"5\n\x11\x44\x65leteTripRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x0f\n\x07trip_id\x18\x02 \x01(\r\"l\n\x0f\x41\x64\x64PhotoRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\textension\x18\x03 \x01(\t\x12\x0e\n\x04\x64\x61ta\x18\x63 \x01(\x0cH\x00\x12\r\n\x03url\x18\x64 \x01(\tH\x00\x42\x08\n\x06source\"!\n\x0eTripsOfRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\"\'\n\x0fTripsOfResponse\x12\x14\n\x05trips\x18\x63 \x03(\x0b\x32\x05.Trip\"3\n\x0fPhotosOfRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x0f\n\x07trip_id\x18\x02 \x01(\r\")\n\x10PhotosOfResponse\x12\x15\n\x05photo\x18\x01 \x01(\x0b\x32\x06.Photo2O\n\x05Users\x12%\n\x08register\x12\x10.RegisterRequest\x1a\x05.User\"\x00\x12\x1f\n\x05login\x12\r.LoginRequest\x1a\x05.User\"\x00\x32\xe9\x01\n\x05Trips\x12.\n\x07tripsOf\x12\x0f.TripsOfRequest\x1a\x10.TripsOfResponse\"\x00\x12%\n\x07\x61\x64\x64Trip\x12\x0f.AddTripRequest\x1a\x07.Result\"\x00\x12+\n\ndeleteTrip\x12\x12.DeleteTripRequest\x1a\x07.Result\"\x00\x12\'\n\x08\x61\x64\x64Photo\x12\x10.AddPhotoRequest\x1a\x07.Result\"\x00\x12\x33\n\x08photosOf\x12\x10.PhotosOfRequest\x1a\x11.PhotosOfResponse\"\x00\x30\x01\x62\x06proto3'
-)
+  serialized_pb=b'\n\rgreeter.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x18\n\x06Result\x12\x0e\n\x06\x65rrors\x18\x01 \x03(\t\"\"\n\x06\x43oords\x12\x0b\n\x03lat\x18\x01 \x01(\x01\x12\x0b\n\x03lon\x18\x02 \x01(\x01\"k\n\x0b\x44\x65stination\x12\x17\n\x06\x63oords\x18\x01 \x01(\x0b\x32\x07.Coords\x12.\n\nvisit_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"8\n\x04User\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\"\xa3\x01\n\x04Trip\x12\x0f\n\x07trip_id\x18\x01 \x01(\r\x12\x0f\n\x07user_id\x18\x02 \x01(\r\x12.\n\nstart_date\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_date\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x05stops\x18\x63 \x03(\x0b\x32\x0c.Destination\"w\n\x05Photo\x12\x10\n\x08photo_id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\textension\x18\x03 \x01(\t\x12.\n\ndate_taken\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03url\x18\x05 \x01(\t\"D\n\x0fRegisterRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"2\n\x0cLoginRequest\x12\x10\n\x08identity\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"7\n\x0e\x41\x64\x64TripRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x14\n\x05trips\x18\x02 \x03(\x0b\x32\x05.Trip\"5\n\x11\x44\x65leteTripRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x0f\n\x07trip_id\x18\x02 \x01(\r\"F\n\x13\x41\x64\x64\x44\x65stPhotoRequest\x12\x17\n\x06\x63oords\x18\x01 \x01(\x0b\x32\x07.Coords\x12\x16\n\x06photos\x18\x63 \x03(\x0b\x32\x06.Photo\"!\n\x0eTripsOfRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\"\'\n\x0fTripsOfResponse\x12\x14\n\x05trips\x18\x63 \x03(\x0b\x32\x05.Trip\"3\n\x0fPhotosOfRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\r\x12\x0f\n\x07trip_id\x18\x02 \x01(\r\")\n\x10PhotosOfResponse\x12\x15\n\x05photo\x18\x01 \x01(\x0b\x32\x06.Photo2K\n\x05Users\x12#\n\x08register\x12\x10.RegisterRequest\x1a\x05.User\x12\x1d\n\x05login\x12\r.LoginRequest\x1a\x05.User2\xf0\x01\n\x05Trips\x12,\n\x07tripsOf\x12\x0f.TripsOfRequest\x1a\x10.TripsOfResponse\x12#\n\x07\x61\x64\x64Trip\x12\x0f.AddTripRequest\x1a\x07.Result\x12)\n\ndeleteTrip\x12\x12.DeleteTripRequest\x1a\x07.Result\x12\x36\n\x15\x61\x64\x64PhotoToDestination\x12\x14.AddDestPhotoRequest\x1a\x07.Result\x12\x31\n\x08photosOf\x12\x10.PhotosOfRequest\x1a\x11.PhotosOfResponse0\x01\x62\x06proto3'
+  ,
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
 
 
 
-_COORD = _descriptor.Descriptor(
-  name='Coord',
-  full_name='Coord',
+_RESULT = _descriptor.Descriptor(
+  name='Result',
+  full_name='Result',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='lat', full_name='Coord.lat', index=0,
-      number=1, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='long', full_name='Coord.long', index=1,
-      number=2, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=17,
-  serialized_end=51,
-)
-
-
-_RESULT_ERROR = _descriptor.Descriptor(
-  name='Error',
-  full_name='Result.Error',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='errors', full_name='Result.Error.errors', index=0,
+      name='errors', full_name='Result.errors', index=0,
       number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -91,36 +54,37 @@ _RESULT_ERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=115,
-  serialized_end=138,
+  serialized_start=50,
+  serialized_end=74,
 )
 
-_RESULT = _descriptor.Descriptor(
-  name='Result',
-  full_name='Result',
+
+_COORDS = _descriptor.Descriptor(
+  name='Coords',
+  full_name='Coords',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='success', full_name='Result.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
+      name='lat', full_name='Coords.lat', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='reason', full_name='Result.reason', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='lon', full_name='Coords.lon', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
-  nested_types=[_RESULT_ERROR, ],
+  nested_types=[],
   enum_types=[
   ],
   serialized_options=None,
@@ -128,14 +92,55 @@ _RESULT = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
-    _descriptor.OneofDescriptor(
-      name='result', full_name='Result.result',
-      index=0, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
   ],
-  serialized_start=53,
-  serialized_end=148,
+  serialized_start=76,
+  serialized_end=110,
+)
+
+
+_DESTINATION = _descriptor.Descriptor(
+  name='Destination',
+  full_name='Destination',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='coords', full_name='Destination.coords', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='visit_time', full_name='Destination.visit_time', index=1,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='Destination.description', index=2,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=112,
+  serialized_end=219,
 )
 
 
@@ -180,8 +185,8 @@ _USER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=150,
-  serialized_end=206,
+  serialized_start=221,
+  serialized_end=277,
 )
 
 
@@ -208,7 +213,21 @@ _TRIP = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='stops', full_name='Trip.stops', index=2,
+      name='start_date', full_name='Trip.start_date', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='end_date', full_name='Trip.end_date', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='stops', full_name='Trip.stops', index=4,
       number=99, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -226,8 +245,8 @@ _TRIP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=208,
-  serialized_end=271,
+  serialized_start=280,
+  serialized_end=443,
 )
 
 
@@ -261,15 +280,15 @@ _PHOTO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='Photo.data', index=3,
-      number=99, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"",
+      name='date_taken', full_name='Photo.date_taken', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='url', full_name='Photo.url', index=4,
-      number=100, type=9, cpp_type=9, label=1,
+      number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -285,14 +304,9 @@ _PHOTO = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
-    _descriptor.OneofDescriptor(
-      name='source', full_name='Photo.source',
-      index=0, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
   ],
-  serialized_start=273,
-  serialized_end=372,
+  serialized_start=445,
+  serialized_end=564,
 )
 
 
@@ -337,8 +351,8 @@ _REGISTERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=374,
-  serialized_end=442,
+  serialized_start=566,
+  serialized_end=634,
 )
 
 
@@ -376,8 +390,8 @@ _LOGINREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=444,
-  serialized_end=494,
+  serialized_start=636,
+  serialized_end=686,
 )
 
 
@@ -397,8 +411,8 @@ _ADDTRIPREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='stops', full_name='AddTripRequest.stops', index=1,
-      number=99, type=11, cpp_type=10, label=3,
+      name='trips', full_name='AddTripRequest.trips', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -415,8 +429,8 @@ _ADDTRIPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=496,
-  serialized_end=552,
+  serialized_start=688,
+  serialized_end=743,
 )
 
 
@@ -454,51 +468,30 @@ _DELETETRIPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=554,
-  serialized_end=607,
+  serialized_start=745,
+  serialized_end=798,
 )
 
 
-_ADDPHOTOREQUEST = _descriptor.Descriptor(
-  name='AddPhotoRequest',
-  full_name='AddPhotoRequest',
+_ADDDESTPHOTOREQUEST = _descriptor.Descriptor(
+  name='AddDestPhotoRequest',
+  full_name='AddDestPhotoRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='AddPhotoRequest.user_id', index=0,
-      number=1, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
+      name='coords', full_name='AddDestPhotoRequest.coords', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='name', full_name='AddPhotoRequest.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='extension', full_name='AddPhotoRequest.extension', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='AddPhotoRequest.data', index=3,
-      number=99, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"",
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='url', full_name='AddPhotoRequest.url', index=4,
-      number=100, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='photos', full_name='AddDestPhotoRequest.photos', index=1,
+      number=99, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -513,14 +506,9 @@ _ADDPHOTOREQUEST = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
-    _descriptor.OneofDescriptor(
-      name='source', full_name='AddPhotoRequest.source',
-      index=0, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
   ],
-  serialized_start=609,
-  serialized_end=717,
+  serialized_start=800,
+  serialized_end=870,
 )
 
 
@@ -551,8 +539,8 @@ _TRIPSOFREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=719,
-  serialized_end=752,
+  serialized_start=872,
+  serialized_end=905,
 )
 
 
@@ -583,8 +571,8 @@ _TRIPSOFRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=754,
-  serialized_end=793,
+  serialized_start=907,
+  serialized_end=946,
 )
 
 
@@ -622,8 +610,8 @@ _PHOTOSOFREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=795,
-  serialized_end=846,
+  serialized_start=948,
+  serialized_end=999,
 )
 
 
@@ -654,36 +642,24 @@ _PHOTOSOFRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=848,
-  serialized_end=889,
+  serialized_start=1001,
+  serialized_end=1042,
 )
 
-_RESULT_ERROR.containing_type = _RESULT
-_RESULT.fields_by_name['reason'].message_type = _RESULT_ERROR
-_RESULT.oneofs_by_name['result'].fields.append(
-  _RESULT.fields_by_name['success'])
-_RESULT.fields_by_name['success'].containing_oneof = _RESULT.oneofs_by_name['result']
-_RESULT.oneofs_by_name['result'].fields.append(
-  _RESULT.fields_by_name['reason'])
-_RESULT.fields_by_name['reason'].containing_oneof = _RESULT.oneofs_by_name['result']
-_TRIP.fields_by_name['stops'].message_type = _COORD
-_PHOTO.oneofs_by_name['source'].fields.append(
-  _PHOTO.fields_by_name['data'])
-_PHOTO.fields_by_name['data'].containing_oneof = _PHOTO.oneofs_by_name['source']
-_PHOTO.oneofs_by_name['source'].fields.append(
-  _PHOTO.fields_by_name['url'])
-_PHOTO.fields_by_name['url'].containing_oneof = _PHOTO.oneofs_by_name['source']
-_ADDTRIPREQUEST.fields_by_name['stops'].message_type = _COORD
-_ADDPHOTOREQUEST.oneofs_by_name['source'].fields.append(
-  _ADDPHOTOREQUEST.fields_by_name['data'])
-_ADDPHOTOREQUEST.fields_by_name['data'].containing_oneof = _ADDPHOTOREQUEST.oneofs_by_name['source']
-_ADDPHOTOREQUEST.oneofs_by_name['source'].fields.append(
-  _ADDPHOTOREQUEST.fields_by_name['url'])
-_ADDPHOTOREQUEST.fields_by_name['url'].containing_oneof = _ADDPHOTOREQUEST.oneofs_by_name['source']
+_DESTINATION.fields_by_name['coords'].message_type = _COORDS
+_DESTINATION.fields_by_name['visit_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_TRIP.fields_by_name['start_date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_TRIP.fields_by_name['end_date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_TRIP.fields_by_name['stops'].message_type = _DESTINATION
+_PHOTO.fields_by_name['date_taken'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_ADDTRIPREQUEST.fields_by_name['trips'].message_type = _TRIP
+_ADDDESTPHOTOREQUEST.fields_by_name['coords'].message_type = _COORDS
+_ADDDESTPHOTOREQUEST.fields_by_name['photos'].message_type = _PHOTO
 _TRIPSOFRESPONSE.fields_by_name['trips'].message_type = _TRIP
 _PHOTOSOFRESPONSE.fields_by_name['photo'].message_type = _PHOTO
-DESCRIPTOR.message_types_by_name['Coord'] = _COORD
 DESCRIPTOR.message_types_by_name['Result'] = _RESULT
+DESCRIPTOR.message_types_by_name['Coords'] = _COORDS
+DESCRIPTOR.message_types_by_name['Destination'] = _DESTINATION
 DESCRIPTOR.message_types_by_name['User'] = _USER
 DESCRIPTOR.message_types_by_name['Trip'] = _TRIP
 DESCRIPTOR.message_types_by_name['Photo'] = _PHOTO
@@ -691,34 +667,33 @@ DESCRIPTOR.message_types_by_name['RegisterRequest'] = _REGISTERREQUEST
 DESCRIPTOR.message_types_by_name['LoginRequest'] = _LOGINREQUEST
 DESCRIPTOR.message_types_by_name['AddTripRequest'] = _ADDTRIPREQUEST
 DESCRIPTOR.message_types_by_name['DeleteTripRequest'] = _DELETETRIPREQUEST
-DESCRIPTOR.message_types_by_name['AddPhotoRequest'] = _ADDPHOTOREQUEST
+DESCRIPTOR.message_types_by_name['AddDestPhotoRequest'] = _ADDDESTPHOTOREQUEST
 DESCRIPTOR.message_types_by_name['TripsOfRequest'] = _TRIPSOFREQUEST
 DESCRIPTOR.message_types_by_name['TripsOfResponse'] = _TRIPSOFRESPONSE
 DESCRIPTOR.message_types_by_name['PhotosOfRequest'] = _PHOTOSOFREQUEST
 DESCRIPTOR.message_types_by_name['PhotosOfResponse'] = _PHOTOSOFRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Coord = _reflection.GeneratedProtocolMessageType('Coord', (_message.Message,), {
-  'DESCRIPTOR' : _COORD,
-  '__module__' : 'greeter_pb2'
-  # @@protoc_insertion_point(class_scope:Coord)
-  })
-_sym_db.RegisterMessage(Coord)
-
 Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), {
-
-  'Error' : _reflection.GeneratedProtocolMessageType('Error', (_message.Message,), {
-    'DESCRIPTOR' : _RESULT_ERROR,
-    '__module__' : 'greeter_pb2'
-    # @@protoc_insertion_point(class_scope:Result.Error)
-    })
-  ,
   'DESCRIPTOR' : _RESULT,
   '__module__' : 'greeter_pb2'
   # @@protoc_insertion_point(class_scope:Result)
   })
 _sym_db.RegisterMessage(Result)
-_sym_db.RegisterMessage(Result.Error)
+
+Coords = _reflection.GeneratedProtocolMessageType('Coords', (_message.Message,), {
+  'DESCRIPTOR' : _COORDS,
+  '__module__' : 'greeter_pb2'
+  # @@protoc_insertion_point(class_scope:Coords)
+  })
+_sym_db.RegisterMessage(Coords)
+
+Destination = _reflection.GeneratedProtocolMessageType('Destination', (_message.Message,), {
+  'DESCRIPTOR' : _DESTINATION,
+  '__module__' : 'greeter_pb2'
+  # @@protoc_insertion_point(class_scope:Destination)
+  })
+_sym_db.RegisterMessage(Destination)
 
 User = _reflection.GeneratedProtocolMessageType('User', (_message.Message,), {
   'DESCRIPTOR' : _USER,
@@ -769,12 +744,12 @@ DeleteTripRequest = _reflection.GeneratedProtocolMessageType('DeleteTripRequest'
   })
 _sym_db.RegisterMessage(DeleteTripRequest)
 
-AddPhotoRequest = _reflection.GeneratedProtocolMessageType('AddPhotoRequest', (_message.Message,), {
-  'DESCRIPTOR' : _ADDPHOTOREQUEST,
+AddDestPhotoRequest = _reflection.GeneratedProtocolMessageType('AddDestPhotoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ADDDESTPHOTOREQUEST,
   '__module__' : 'greeter_pb2'
-  # @@protoc_insertion_point(class_scope:AddPhotoRequest)
+  # @@protoc_insertion_point(class_scope:AddDestPhotoRequest)
   })
-_sym_db.RegisterMessage(AddPhotoRequest)
+_sym_db.RegisterMessage(AddDestPhotoRequest)
 
 TripsOfRequest = _reflection.GeneratedProtocolMessageType('TripsOfRequest', (_message.Message,), {
   'DESCRIPTOR' : _TRIPSOFREQUEST,
@@ -813,8 +788,8 @@ _USERS = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=891,
-  serialized_end=970,
+  serialized_start=1044,
+  serialized_end=1119,
   methods=[
   _descriptor.MethodDescriptor(
     name='register',
@@ -849,8 +824,8 @@ _TRIPS = _descriptor.ServiceDescriptor(
   index=1,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=973,
-  serialized_end=1206,
+  serialized_start=1122,
+  serialized_end=1362,
   methods=[
   _descriptor.MethodDescriptor(
     name='tripsOf',
@@ -883,11 +858,11 @@ _TRIPS = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='addPhoto',
-    full_name='Trips.addPhoto',
+    name='addPhotoToDestination',
+    full_name='Trips.addPhotoToDestination',
     index=3,
     containing_service=None,
-    input_type=_ADDPHOTOREQUEST,
+    input_type=_ADDDESTPHOTOREQUEST,
     output_type=_RESULT,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

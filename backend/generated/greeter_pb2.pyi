@@ -6,52 +6,60 @@ import builtins
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import google.protobuf.timestamp_pb2
 import typing
 import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class Coord(google.protobuf.message.Message):
+class Result(google.protobuf.message.Message):
+    """option optimize_for = LITE_RUNTIME;
+
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    ERRORS_FIELD_NUMBER: builtins.int
+    @property
+    def errors(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    def __init__(self,
+        *,
+        errors: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["errors",b"errors"]) -> None: ...
+global___Result = Result
+
+class Coords(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     LAT_FIELD_NUMBER: builtins.int
-    LONG_FIELD_NUMBER: builtins.int
+    LON_FIELD_NUMBER: builtins.int
     lat: builtins.float
-    long: builtins.float
+    lon: builtins.float
     def __init__(self,
         *,
         lat: builtins.float = ...,
-        long: builtins.float = ...,
+        lon: builtins.float = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["lat",b"lat","long",b"long"]) -> None: ...
-global___Coord = Coord
+    def ClearField(self, field_name: typing_extensions.Literal["lat",b"lat","lon",b"lon"]) -> None: ...
+global___Coords = Coords
 
-class Result(google.protobuf.message.Message):
+class Destination(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    class Error(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-        ERRORS_FIELD_NUMBER: builtins.int
-        @property
-        def errors(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
-        def __init__(self,
-            *,
-            errors: typing.Optional[typing.Iterable[typing.Text]] = ...,
-            ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["errors",b"errors"]) -> None: ...
-
-    SUCCESS_FIELD_NUMBER: builtins.int
-    REASON_FIELD_NUMBER: builtins.int
-    success: builtins.bool
+    COORDS_FIELD_NUMBER: builtins.int
+    VISIT_TIME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
     @property
-    def reason(self) -> global___Result.Error: ...
+    def coords(self) -> global___Coords: ...
+    @property
+    def visit_time(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    description: typing.Text
     def __init__(self,
         *,
-        success: builtins.bool = ...,
-        reason: typing.Optional[global___Result.Error] = ...,
+        coords: typing.Optional[global___Coords] = ...,
+        visit_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        description: typing.Text = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["reason",b"reason","result",b"result","success",b"success"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["reason",b"reason","result",b"result","success",b"success"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["result",b"result"]) -> typing.Optional[typing_extensions.Literal["success","reason"]]: ...
-global___Result = Result
+    def HasField(self, field_name: typing_extensions.Literal["coords",b"coords","visit_time",b"visit_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["coords",b"coords","description",b"description","visit_time",b"visit_time"]) -> None: ...
+global___Destination = Destination
 
 class User(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -74,18 +82,27 @@ class Trip(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     TRIP_ID_FIELD_NUMBER: builtins.int
     USER_ID_FIELD_NUMBER: builtins.int
+    START_DATE_FIELD_NUMBER: builtins.int
+    END_DATE_FIELD_NUMBER: builtins.int
     STOPS_FIELD_NUMBER: builtins.int
     trip_id: builtins.int
     user_id: builtins.int
     @property
-    def stops(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Coord]: ...
+    def start_date(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def end_date(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def stops(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Destination]: ...
     def __init__(self,
         *,
         trip_id: builtins.int = ...,
         user_id: builtins.int = ...,
-        stops: typing.Optional[typing.Iterable[global___Coord]] = ...,
+        start_date: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        end_date: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        stops: typing.Optional[typing.Iterable[global___Destination]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["stops",b"stops","trip_id",b"trip_id","user_id",b"user_id"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["end_date",b"end_date","start_date",b"start_date"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["end_date",b"end_date","start_date",b"start_date","stops",b"stops","trip_id",b"trip_id","user_id",b"user_id"]) -> None: ...
 global___Trip = Trip
 
 class Photo(google.protobuf.message.Message):
@@ -93,24 +110,24 @@ class Photo(google.protobuf.message.Message):
     PHOTO_ID_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
     EXTENSION_FIELD_NUMBER: builtins.int
-    DATA_FIELD_NUMBER: builtins.int
+    DATE_TAKEN_FIELD_NUMBER: builtins.int
     URL_FIELD_NUMBER: builtins.int
     photo_id: builtins.int
     name: typing.Text
     extension: typing.Text
-    data: builtins.bytes
+    @property
+    def date_taken(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     url: typing.Text
     def __init__(self,
         *,
         photo_id: builtins.int = ...,
         name: typing.Text = ...,
         extension: typing.Text = ...,
-        data: builtins.bytes = ...,
+        date_taken: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
         url: typing.Text = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data",b"data","source",b"source","url",b"url"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data",b"data","extension",b"extension","name",b"name","photo_id",b"photo_id","source",b"source","url",b"url"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["source",b"source"]) -> typing.Optional[typing_extensions.Literal["data","url"]]: ...
+    def HasField(self, field_name: typing_extensions.Literal["date_taken",b"date_taken"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["date_taken",b"date_taken","extension",b"extension","name",b"name","photo_id",b"photo_id","url",b"url"]) -> None: ...
 global___Photo = Photo
 
 class RegisterRequest(google.protobuf.message.Message):
@@ -149,16 +166,16 @@ global___LoginRequest = LoginRequest
 class AddTripRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     USER_ID_FIELD_NUMBER: builtins.int
-    STOPS_FIELD_NUMBER: builtins.int
+    TRIPS_FIELD_NUMBER: builtins.int
     user_id: builtins.int
     @property
-    def stops(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Coord]: ...
+    def trips(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Trip]: ...
     def __init__(self,
         *,
         user_id: builtins.int = ...,
-        stops: typing.Optional[typing.Iterable[global___Coord]] = ...,
+        trips: typing.Optional[typing.Iterable[global___Trip]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["stops",b"stops","user_id",b"user_id"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["trips",b"trips","user_id",b"user_id"]) -> None: ...
 global___AddTripRequest = AddTripRequest
 
 class DeleteTripRequest(google.protobuf.message.Message):
@@ -175,30 +192,22 @@ class DeleteTripRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["trip_id",b"trip_id","user_id",b"user_id"]) -> None: ...
 global___DeleteTripRequest = DeleteTripRequest
 
-class AddPhotoRequest(google.protobuf.message.Message):
+class AddDestPhotoRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-    USER_ID_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    EXTENSION_FIELD_NUMBER: builtins.int
-    DATA_FIELD_NUMBER: builtins.int
-    URL_FIELD_NUMBER: builtins.int
-    user_id: builtins.int
-    name: typing.Text
-    extension: typing.Text
-    data: builtins.bytes
-    url: typing.Text
+    COORDS_FIELD_NUMBER: builtins.int
+    PHOTOS_FIELD_NUMBER: builtins.int
+    @property
+    def coords(self) -> global___Coords: ...
+    @property
+    def photos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Photo]: ...
     def __init__(self,
         *,
-        user_id: builtins.int = ...,
-        name: typing.Text = ...,
-        extension: typing.Text = ...,
-        data: builtins.bytes = ...,
-        url: typing.Text = ...,
+        coords: typing.Optional[global___Coords] = ...,
+        photos: typing.Optional[typing.Iterable[global___Photo]] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data",b"data","source",b"source","url",b"url"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data",b"data","extension",b"extension","name",b"name","source",b"source","url",b"url","user_id",b"user_id"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["source",b"source"]) -> typing.Optional[typing_extensions.Literal["data","url"]]: ...
-global___AddPhotoRequest = AddPhotoRequest
+    def HasField(self, field_name: typing_extensions.Literal["coords",b"coords"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["coords",b"coords","photos",b"photos"]) -> None: ...
+global___AddDestPhotoRequest = AddDestPhotoRequest
 
 class TripsOfRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor

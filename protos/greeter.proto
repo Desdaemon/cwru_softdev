@@ -3,22 +3,23 @@ syntax = "proto3";
 // Learn more about this file's syntax:
 // https://developers.google.com/protocol-buffers/docs/proto3
 
-message Coord {
-  double lat = 1;
-  double long = 2;
-}
+import "google/protobuf/timestamp.proto";
+
+// option optimize_for = LITE_RUNTIME;
 
 message Result {
-  // nested messsage
-  message Error {
-    // repeated denotes an array
-    repeated string errors = 1;
-  }
-  // a union of two or more possible values
-  oneof result {
-    bool success = 1;
-    Error reason = 2;
-  }
+  repeated string errors = 1;
+}
+
+message Coords {
+  double lat = 1;
+  double lon = 2;
+}
+
+message Destination {
+  Coords coords = 1;
+  google.protobuf.Timestamp visit_time = 3;
+  string description = 4;
 }
 
 message User {
@@ -30,31 +31,34 @@ message User {
 message Trip {
   uint32 trip_id = 1;
   uint32 user_id = 2;
-  repeated Coord stops = 99;
+  google.protobuf.Timestamp start_date = 3;
+  google.protobuf.Timestamp end_date = 4;
+  repeated Destination stops = 99;
 }
 
 message Photo {
   uint32 photo_id = 1;
   string name = 2;
   string extension = 3;
-  string url = 99;
+  google.protobuf.Timestamp date_taken = 4;
+  string url = 5;
 }
 
 service Users {
-  rpc register (RegisterRequest) returns (User) {}
-  rpc login (LoginRequest) returns (User) {}
+  rpc register (RegisterRequest) returns (User);
+  rpc login (LoginRequest) returns (User);
 }
 
 // define an interface to implement
 service Trips {
   // each method takes one parameter message and returns one response message
-  rpc tripsOf (TripsOfRequest) returns (TripsOfResponse) {}
-  rpc addTrip (AddTripRequest) returns (Result) {}
-  rpc deleteTrip (DeleteTripRequest) returns (Result) {}
-  rpc addPhoto (AddPhotoRequest) returns (Result) {}
+  rpc tripsOf (TripsOfRequest) returns (TripsOfResponse);
+  rpc addTrip (AddTripRequest) returns (Result);
+  rpc deleteTrip (DeleteTripRequest) returns (Result);
+  rpc addPhotoToDestination (AddDestPhotoRequest) returns (Result);
   // this method returns a stream of messages
   // in both Dart and Python, this can be achieved via generators
-  rpc photosOf (PhotosOfRequest) returns (stream PhotosOfResponse) {}
+  rpc photosOf (PhotosOfRequest) returns (stream PhotosOfResponse);
 }
 
 message RegisterRequest {
@@ -70,7 +74,7 @@ message LoginRequest {
 
 message AddTripRequest {
   uint32 user_id = 1;
-  repeated Coord stops = 99;
+  repeated Trip trips = 2;
 }
 
 message DeleteTripRequest {
@@ -78,14 +82,9 @@ message DeleteTripRequest {
   uint32 trip_id = 2;
 }
 
-message AddPhotoRequest {
-  uint32 user_id = 1;
-  string name = 2;
-  string extension = 3;
-  oneof source {
-    bytes data = 99;
-    string url = 100;
-  }
+message AddDestPhotoRequest {
+  Coords coords = 1;
+  repeated Photo photos = 99;
 }
 
 message TripsOfRequest {

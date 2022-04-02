@@ -35,10 +35,12 @@ class UsersServicer(metaclass=abc.ABCMeta):
 def add_UsersServicer_to_server(servicer: UsersServicer, server: grpc.Server) -> None: ...
 
 class TripsStub:
+    """define an interface to implement"""
     def __init__(self, channel: grpc.Channel) -> None: ...
     tripsOf: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.TripsOfRequest,
         greeter_pb2.TripsOfResponse]
+    """each method takes one parameter message and returns one response message"""
 
     addTrip: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.AddTripRequest,
@@ -48,21 +50,27 @@ class TripsStub:
         greeter_pb2.DeleteTripRequest,
         greeter_pb2.Result]
 
-    addPhoto: grpc.UnaryUnaryMultiCallable[
-        greeter_pb2.AddPhotoRequest,
+    addPhotoToDestination: grpc.UnaryUnaryMultiCallable[
+        greeter_pb2.AddDestPhotoRequest,
         greeter_pb2.Result]
 
     photosOf: grpc.UnaryStreamMultiCallable[
         greeter_pb2.PhotosOfRequest,
         greeter_pb2.PhotosOfResponse]
+    """this method returns a stream of messages
+    in both Dart and Python, this can be achieved via generators
+    """
 
 
 class TripsServicer(metaclass=abc.ABCMeta):
+    """define an interface to implement"""
     @abc.abstractmethod
     def tripsOf(self,
         request: greeter_pb2.TripsOfRequest,
         context: grpc.ServicerContext,
-    ) -> greeter_pb2.TripsOfResponse: ...
+    ) -> greeter_pb2.TripsOfResponse:
+        """each method takes one parameter message and returns one response message"""
+        pass
 
     @abc.abstractmethod
     def addTrip(self,
@@ -77,8 +85,8 @@ class TripsServicer(metaclass=abc.ABCMeta):
     ) -> greeter_pb2.Result: ...
 
     @abc.abstractmethod
-    def addPhoto(self,
-        request: greeter_pb2.AddPhotoRequest,
+    def addPhotoToDestination(self,
+        request: greeter_pb2.AddDestPhotoRequest,
         context: grpc.ServicerContext,
     ) -> greeter_pb2.Result: ...
 
@@ -86,7 +94,11 @@ class TripsServicer(metaclass=abc.ABCMeta):
     def photosOf(self,
         request: greeter_pb2.PhotosOfRequest,
         context: grpc.ServicerContext,
-    ) -> typing.Iterator[greeter_pb2.PhotosOfResponse]: ...
+    ) -> typing.Iterator[greeter_pb2.PhotosOfResponse]:
+        """this method returns a stream of messages
+        in both Dart and Python, this can be achieved via generators
+        """
+        pass
 
 
 def add_TripsServicer_to_server(servicer: TripsServicer, server: grpc.Server) -> None: ...
