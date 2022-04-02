@@ -3,7 +3,8 @@
 gen: gen-dart gen-py
 
 gen-dart:
-    protoc -Iprotos protos/*.proto --dart_out=grpc:lib/generated
+    protoc -Iprotos protos/*.proto --dart_out=grpc:lib/generated \
+        google/protobuf/timestamp.proto
 
 setup-py pybin="python3":
     {{pybin}} -m pip install mypy-protobuf grpcio-tools

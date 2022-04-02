@@ -25,18 +25,19 @@ def sql(query: str,
     
     Pass an optional third argument as the connection to use.
     """
-    res: list[tuple] = []
-    def _call(con):
+    def _call(con: sqlite3.Connection):
         if isinstance(params, tuple):
-            res = con.execute(query, params).fetchall()
-        elif isinstance(params, Iterable):
-            res = con.executemany(query, params).fetchall()
+            return con.execute(query, params).fetchall()
+        if isinstance(params, Iterable):
+            return con.executemany(query, params).fetchall()
+        raise Exception(f'Expected tuple for Iterable, got {type(params)}')
+
     if with_con is not None:
-        _call(with_con)
+        return _call(with_con)
     else:
         with sqlite3.connect(DBPATH) as con:
-            _call(con)
-    return res
+            return _call(con)
+    return []
 
 def sqlCursor(query: str, params=(), batch_size=16) -> Iterator[tuple]:
     with sqlite3.connect(DBPATH) as con:
@@ -102,9 +103,8 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         # handle "group by" here, since SQLite does not do it for us
         trips: dict[str, list[Destination]] = {}
         for trip_id, lat, lon in stops:
-            if not trips[trip_id]:
-                trips[trip_id] = []
-            trips[trip_id].append(Destination(coords=Coords(lat=lat, lon=lon)))
+            trips.setdefault(trip_id, []).append(
+                Destination(coords=Coords(lat=lat, lon=lon)))
     
         return TripsOfResponse(trips=[
             Trip(trip_id=int(trip_id), stops=stops)
