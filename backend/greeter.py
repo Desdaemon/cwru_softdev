@@ -15,6 +15,8 @@ def prepareDb(dbpath: str):
     with open(dbpath, 'w') as _:
         pass # truncate and close immediately
 
+def connect(): return sqlite3.connect(DBPATH)
+
 def sql(query: str,
         params = (),
         with_con = None) -> list[tuple]:
@@ -35,12 +37,12 @@ def sql(query: str,
     if with_con is not None:
         return _call(with_con)
     else:
-        with sqlite3.connect(DBPATH) as con:
+        with connect() as con:
             return _call(con)
     return []
 
 def sqlCursor(query: str, params=(), batch_size=16) -> Iterator[tuple]:
-    with sqlite3.connect(DBPATH) as con:
+    with connect() as con:
         cursor = con.execute(query, params)
         try:
             yield from cursor.fetchmany(batch_size)
@@ -53,12 +55,12 @@ class UsersServicer(greeter_pb2_grpc.UsersServicer):
         username = request.username
         email = request.email
         password = request.password
-        logging.info((username, email))
+        logging.info(f'{username=} {email=}')
         new_user = sql(
             'insert into Users(username, email, password) values(?, ?, ?) returning user_id',
             (username, email, password)
         )
-        assert len(new_user) == 1, 'failed to find new user'
+        assert len(new_user) == 1, f'expected single new user, got {len(new_user)}'
         user_id, = new_user[0]
         return User(user_id=int(user_id), username=username, email=email)
 
@@ -144,7 +146,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
     def addTrip(self, request: AddTripRequest, context: grpc.ServicerContext) -> Result:
         userid = request.user_id
         logging.info(f'{userid=} {[*request.trips]=}')
-        with sqlite3.connect(DBPATH) as con:
+        with connect() as con:
             # manually open a transaction here, autocommit at the end of the with statement
             for trip in request.trips:
                 sql(
@@ -157,7 +159,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
                     (userid,),
                     con
                 )
-                assert len(new_trip) == 1, 'expected to add a single trip only'
+                assert len(new_trip) == 1, f'expected single trip, got {len(new_trip)}'
                 tripid, = new_trip[0]
                 sql(
                     'insert into TripDestinations(trip_id, lat, lon) values (?, ?, ?)',
@@ -183,7 +185,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
     def addPhotoToDestination(self, request: AddDestPhotoRequest, context: grpc.ServicerContext) -> Result:
         coords = request.coords
         photos = request.photos
-        with sqlite3.connect(DBPATH) as con:
+        with connect() as con:
             photoids = sql(
                 'insert into Photos(name, url, date_taken) values (?, ?, ?) returning photo_id',
                 [
@@ -192,7 +194,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
                 ],
                 con
             )
-            assert len(photoids) == len(photos), 'expect all photos to be added'
+            assert len(photoids) == len(photos), f'expect all photos to be added ({len(photoids)=} == {len(photos)=})'
             sql(
                 'insert into DestinationPhotos(lat, lon, photo_id) values (?, ?, ?)',
                 [
