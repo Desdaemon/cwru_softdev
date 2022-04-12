@@ -473,6 +473,84 @@ class Photo extends $pb.GeneratedMessage {
   void clearUrl() => clearField(5);
 }
 
+enum UserResponse_Result {
+  user, 
+  error, 
+  notSet
+}
+
+class UserResponse extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, UserResponse_Result> _UserResponse_ResultByTag = {
+    1 : UserResponse_Result.user,
+    2 : UserResponse_Result.error,
+    0 : UserResponse_Result.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserResponse', createEmptyInstance: create)
+    ..oo(0, [1, 2])
+    ..aOM<User>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'user', subBuilder: User.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'error')
+    ..hasRequiredFields = false
+  ;
+
+  UserResponse._() : super();
+  factory UserResponse({
+    User? user,
+    $core.String? error,
+  }) {
+    final _result = create();
+    if (user != null) {
+      _result.user = user;
+    }
+    if (error != null) {
+      _result.error = error;
+    }
+    return _result;
+  }
+  factory UserResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserResponse clone() => UserResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserResponse copyWith(void Function(UserResponse) updates) => super.copyWith((message) => updates(message as UserResponse)) as UserResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserResponse create() => UserResponse._();
+  UserResponse createEmptyInstance() => create();
+  static $pb.PbList<UserResponse> createRepeated() => $pb.PbList<UserResponse>();
+  @$core.pragma('dart2js:noInline')
+  static UserResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserResponse>(create);
+  static UserResponse? _defaultInstance;
+
+  UserResponse_Result whichResult() => _UserResponse_ResultByTag[$_whichOneof(0)]!;
+  void clearResult() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  User get user => $_getN(0);
+  @$pb.TagNumber(1)
+  set user(User v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUser() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUser() => clearField(1);
+  @$pb.TagNumber(1)
+  User ensureUser() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.String get error => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set error($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasError() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearError() => clearField(2);
+}
+
 class RegisterRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RegisterRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'username')

@@ -81,6 +81,20 @@ const Photo$json = const {
 
 /// Descriptor for `Photo`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List photoDescriptor = $convert.base64Decode('CgVQaG90bxIZCghwaG90b19pZBgBIAEoDVIHcGhvdG9JZBISCgRuYW1lGAIgASgJUgRuYW1lEhwKCWV4dGVuc2lvbhgDIAEoCVIJZXh0ZW5zaW9uEjkKCmRhdGVfdGFrZW4YBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUglkYXRlVGFrZW4SEAoDdXJsGAUgASgJUgN1cmw=');
+@$core.Deprecated('Use userResponseDescriptor instead')
+const UserResponse$json = const {
+  '1': 'UserResponse',
+  '2': const [
+    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.User', '9': 0, '10': 'user'},
+    const {'1': 'error', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'error'},
+  ],
+  '8': const [
+    const {'1': 'result'},
+  ],
+};
+
+/// Descriptor for `UserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userResponseDescriptor = $convert.base64Decode('CgxVc2VyUmVzcG9uc2USGwoEdXNlchgBIAEoCzIFLlVzZXJIAFIEdXNlchIWCgVlcnJvchgCIAEoCUgAUgVlcnJvckIICgZyZXN1bHQ=');
 @$core.Deprecated('Use registerRequestDescriptor instead')
 const RegisterRequest$json = const {
   '1': 'RegisterRequest',

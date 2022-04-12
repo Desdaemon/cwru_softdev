@@ -11,11 +11,11 @@ class UsersStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
     Register: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.RegisterRequest,
-        greeter_pb2.User]
+        greeter_pb2.UserResponse]
 
     Login: grpc.UnaryUnaryMultiCallable[
         greeter_pb2.LoginRequest,
-        greeter_pb2.User]
+        greeter_pb2.UserResponse]
 
 
 class UsersServicer(metaclass=abc.ABCMeta):
@@ -23,13 +23,13 @@ class UsersServicer(metaclass=abc.ABCMeta):
     def Register(self,
         request: greeter_pb2.RegisterRequest,
         context: grpc.ServicerContext,
-    ) -> greeter_pb2.User: ...
+    ) -> greeter_pb2.UserResponse: ...
 
     @abc.abstractmethod
     def Login(self,
         request: greeter_pb2.LoginRequest,
         context: grpc.ServicerContext,
-    ) -> greeter_pb2.User: ...
+    ) -> greeter_pb2.UserResponse: ...
 
 
 def add_UsersServicer_to_server(servicer: UsersServicer, server: grpc.Server) -> None: ...

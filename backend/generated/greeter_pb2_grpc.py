@@ -17,12 +17,12 @@ class UsersStub(object):
         self.Register = channel.unary_unary(
                 '/Users/Register',
                 request_serializer=greeter__pb2.RegisterRequest.SerializeToString,
-                response_deserializer=greeter__pb2.User.FromString,
+                response_deserializer=greeter__pb2.UserResponse.FromString,
                 )
         self.Login = channel.unary_unary(
                 '/Users/Login',
                 request_serializer=greeter__pb2.LoginRequest.SerializeToString,
-                response_deserializer=greeter__pb2.User.FromString,
+                response_deserializer=greeter__pb2.UserResponse.FromString,
                 )
 
 
@@ -47,12 +47,12 @@ def add_UsersServicer_to_server(servicer, server):
             'Register': grpc.unary_unary_rpc_method_handler(
                     servicer.Register,
                     request_deserializer=greeter__pb2.RegisterRequest.FromString,
-                    response_serializer=greeter__pb2.User.SerializeToString,
+                    response_serializer=greeter__pb2.UserResponse.SerializeToString,
             ),
             'Login': grpc.unary_unary_rpc_method_handler(
                     servicer.Login,
                     request_deserializer=greeter__pb2.LoginRequest.FromString,
-                    response_serializer=greeter__pb2.User.SerializeToString,
+                    response_serializer=greeter__pb2.UserResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -77,7 +77,7 @@ class Users(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Users/Register',
             greeter__pb2.RegisterRequest.SerializeToString,
-            greeter__pb2.User.FromString,
+            greeter__pb2.UserResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -94,7 +94,7 @@ class Users(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Users/Login',
             greeter__pb2.LoginRequest.SerializeToString,
-            greeter__pb2.User.FromString,
+            greeter__pb2.UserResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

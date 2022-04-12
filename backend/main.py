@@ -50,7 +50,7 @@ def sqlCursor(query: str, params=(), batch_size=16) -> Iterator[tuple]:
             return
 
 class UsersServicer(greeter_pb2_grpc.UsersServicer):
-    def Register(self, request: RegisterRequest, context: grpc.ServicerContext) -> User:
+    def Register(self, request: RegisterRequest, context: grpc.ServicerContext) -> UserResponse:
         username = request.username
         email = request.email
         password = request.password
@@ -59,11 +59,13 @@ class UsersServicer(greeter_pb2_grpc.UsersServicer):
             'insert into Users(username, email, password) values(?, ?, ?) returning user_id',
             (username, email, password)
         )
-        assert len(new_user) == 1, f'expected single new user, got {len(new_user)}'
-        user_id, = new_user[0]
-        return User(user_id=int(user_id), username=username, email=email)
+        if len(new_user) != 1:
+            return UserResponse(error=f'expected single new user, got {len(new_user)}')
 
-    def Login(self, request: LoginRequest, context: grpc.ServicerContext) -> User:
+        user_id, = new_user[0]
+        return UserResponse(user=User(user_id=int(user_id), username=username, email=email))
+
+    def Login(self, request: LoginRequest, context: grpc.ServicerContext) -> UserResponse:
         identity = request.identity
         password = request.password
         logging.info(f'{identity=}')
@@ -75,9 +77,15 @@ class UsersServicer(greeter_pb2_grpc.UsersServicer):
                 password = ?
             """,
             (identity, identity, password))
-        assert len(login_user) == 1, 'failed to login'
+        if len(login_user) != 1:
+            return UserResponse(error='Invalid username or password')
+
         user_id, username, email = login_user[0]
-        return User(user_id=int(user_id), username=username, email=email)
+        return UserResponse(user=User(
+            user_id=int(user_id),
+            username=username,
+            email=email
+        ))
 
 
 class TripsServicer(greeter_pb2_grpc.TripsServicer):

@@ -43,9 +43,17 @@ message Photo {
 }
 
 service Users {
-  rpc Register (RegisterRequest) returns (User);
-  rpc Login (LoginRequest) returns (User);
+  rpc Register (RegisterRequest) returns (UserResponse);
+  rpc Login (LoginRequest) returns (UserResponse);
 }
+
+message UserResponse {
+  oneof result {
+    User user = 1;
+    string error = 2;
+  }
+}
+
 
 // define an interface to implement
 service Trips {

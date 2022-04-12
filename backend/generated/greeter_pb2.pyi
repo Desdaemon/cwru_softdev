@@ -127,6 +127,23 @@ class Photo(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["date_taken",b"date_taken","extension",b"extension","name",b"name","photo_id",b"photo_id","url",b"url"]) -> None: ...
 global___Photo = Photo
 
+class UserResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    USER_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def user(self) -> global___User: ...
+    error: typing.Text
+    def __init__(self,
+        *,
+        user: typing.Optional[global___User] = ...,
+        error: typing.Text = ...,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["error",b"error","result",b"result","user",b"user"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error",b"error","result",b"result","user",b"user"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["result",b"result"]) -> typing.Optional[typing_extensions.Literal["user","error"]]: ...
+global___UserResponse = UserResponse
+
 class RegisterRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
     USERNAME_FIELD_NUMBER: builtins.int
