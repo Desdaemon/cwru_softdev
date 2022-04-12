@@ -12,5 +12,6 @@ class ApiClient {
 
 late final api = ApiClient.fromChannel(ClientChannel(
   '127.0.0.1',
+  port: 50051,
   options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
 ));
