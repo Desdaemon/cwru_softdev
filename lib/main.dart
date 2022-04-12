@@ -1,3 +1,4 @@
+import 'package:cwru_softdev/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,14 +15,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Travelog',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
+      theme: ThemeData.from(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
       darkTheme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
+          seedColor: Colors.blue,
           brightness: Brightness.dark,
         ),
       ),
-      home: const HomePage(),
+      home: const Scaffold(
+        body: LoginScreen(),
+      ),
     );
   }
 }
