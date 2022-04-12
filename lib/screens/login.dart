@@ -26,10 +26,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 padding: const EdgeInsets.all(10),
                 child: const Text(
                   'Travel Log',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
+                  style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 30),
                 )),
             Container(
                 alignment: Alignment.center,
@@ -67,14 +64,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   onPressed: () async {
                     final UserResponse response = await ref
                         .read(user.notifier)
-                        .register(
-                            username: nameController.text,
-                            password: passwordController.text);
+                        .register(username: nameController.text, password: passwordController.text);
                     if (response.hasError()) {
                       print(response.error);
                     } else if (response.hasUser()) {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_) {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                         return const HomePage();
                       }));
                     }
@@ -91,9 +85,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   onPressed: () async {
                     final UserResponse response = await ref
                         .read(user.notifier)
-                        .register(
-                            username: nameController.text,
-                            password: passwordController.text);
+                        .register(username: nameController.text, password: passwordController.text);
                     if (response.hasError()) {
                       print(response.error);
                     }

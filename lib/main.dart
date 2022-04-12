@@ -15,8 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Travelog',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
+      theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
       darkTheme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
