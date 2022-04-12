@@ -2,7 +2,7 @@ import 'package:cwru_softdev/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'screens/home.dart';
+import 'screens/login.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

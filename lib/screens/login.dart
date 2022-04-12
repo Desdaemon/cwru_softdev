@@ -1,14 +1,17 @@
+import 'package:cwru_softdev/providers.dart';
 import 'package:cwru_softdev/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cwru_softdev/generated/greeter.pb.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -32,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Sign in/Register',
+                  'Login/Register',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(
@@ -61,9 +64,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: ElevatedButton(
                   child: const Text('Login'),
-                  onPressed: () {
-                    print(nameController.text);
-                    print(passwordController.text);
+                  onPressed: () async {
+                    final UserResponse response = await ref
+                        .read(user.notifier)
+                        .register(
+                            username: nameController.text,
+                            password: passwordController.text);
+                    if (response.hasError()) {
+                      print(response.error);
+                    } else if (response.hasUser()) {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) {
+                        return const HomePage();
+                      }));
+                    }
                     Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                       return const HomePage();
                     }));
@@ -74,9 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: ElevatedButton(
                   child: const Text('Register'),
-                  onPressed: () {
-                    print(nameController.text);
-                    print(passwordController.text);
+                  onPressed: () async {
+                    final UserResponse response = await ref
+                        .read(user.notifier)
+                        .register(
+                            username: nameController.text,
+                            password: passwordController.text);
+                    if (response.hasError()) {
+                      print(response.error);
+                    }
                   },
                 )),
           ],
