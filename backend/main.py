@@ -39,7 +39,6 @@ def sql(query: str,
     else:
         with connect() as con:
             return _call(con)
-    return []
 
 def sqlCursor(query: str, params=(), batch_size=16) -> Iterator[tuple]:
     with connect() as con:
