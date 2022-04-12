@@ -16,7 +16,7 @@ class UserProvider extends StateNotifier<User?> {
       identity: identity,
       password: password,
     ));
-    if (res.whichResult() == UserResponse_Result.user) state = res.user;
+    if (res.hasUser()) state = res.user;
     return res;
   }
 
@@ -28,7 +28,7 @@ class UserProvider extends StateNotifier<User?> {
       username: username,
       password: password,
     ));
-    if (res.whichResult() == UserResponse_Result.user) state = res.user;
+    if (res.hasUser()) state = res.user;
     return res;
   }
 }
