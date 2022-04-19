@@ -1,3 +1,4 @@
+import 'package:cwru_softdev/screens/timeline.dart';
 import 'package:flutter/material.dart';
 
 class TripsPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class TripsPage extends StatelessWidget {
             title: Text('Trips'),
             pinned: true,
           ),
-          SliverGrid(
+          SliverList(
             delegate: SliverChildBuilderDelegate(
               (bc, idx) {
                 final text = 'Destination #$idx';
@@ -24,43 +25,48 @@ class TripsPage extends StatelessWidget {
                 ][idx % 3];
                 return GestureDetector(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Clicked on $text')),
-                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text('Clicked on $text')),
+                    // );
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                      return const TimelinePage();
+                    }));
                   },
-                  child: Column(
-                    children: [
-                      AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          alignment: Alignment.bottomLeft,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(img),
-                              fit: BoxFit.cover,
+                  child: Card(
+                    child: Column(
+                      children: [
+                        AspectRatio(
+                          aspectRatio: 2,
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            alignment: Alignment.bottomLeft,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(img),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            text,
-                            style: const TextStyle(
-                              backgroundColor: Color(0x8d000000),
-                              color: Colors.white,
+                            child: Text(
+                              text,
+                              style: const TextStyle(
+                                backgroundColor: Color(0x8d000000),
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
               childCount: 100,
             ),
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 150,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-            ),
+            // gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            //   maxCrossAxisExtent: 150,
+            //   mainAxisSpacing: 4,
+            //   crossAxisSpacing: 4,
+            // ),
           )
         ],
       ),
