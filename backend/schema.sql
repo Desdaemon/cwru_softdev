@@ -8,7 +8,7 @@ create table Users(
 );
 
 create table Trips(
-  trip_id integer not null unique primary key autoincrement,
+  trip_id integer primary key autoincrement,
   start_date date,
   end_date date,
   user_id integer,
@@ -62,9 +62,10 @@ insert into Users values
   (1, 'foo', 'foo@foo.com', 'hunter2'),
   (2, 'bar', 'bar@foo.com', 'hunter3');
 
-insert into Trips values
-  (1, '1998-02-04', '1998-03-05', 2),
-  (2, '2001-05-04', '2002-01-01', 1);
+insert into Trips(start_date, end_date, user_id) values
+  ('1998-02-04', '1998-03-05', 1),
+  ('2001-05-04', '2002-01-01', 1),
+  ('2016-12-12', '2017-12-12', 1);
 
 insert into Destinations values
   (42, -12.12, '1998-02-04', '23:59:59', null),
@@ -73,7 +74,8 @@ insert into Destinations values
 
 insert into TripDestinations values
   (1, 42, -12.12),
-  (1, 42.72, -12.13);
+  (1, 42.72, -12.13),
+  (1, 42.92, -12.13);
 
 insert into Photos values
   (1, 'Clowns at the Circus', 'https://donttrythisathome.clown/196b3/98/02/12', '1998-02-12'),

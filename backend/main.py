@@ -70,7 +70,7 @@ class UsersServicer(greeter_pb2_grpc.UsersServicer):
         password = request.password
         logging.info(f'{identity=}')
         login_user = sql(
-            """
+            """--sql
             select user_id, username, email from Users
             where
                 (username = ? or email = ?) and
@@ -93,17 +93,17 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         userid = request.user_id
         logging.info(f'{userid=}')
         stops = sql(
-            """
+            """--sql
             select T.trip_id, D.lat, D.lon
             from Trips T
-            inner join TripDestinations TD
+            left outer join TripDestinations TD
             on
-                T.user_id = ? and
                 T.trip_id = TD.trip_id
-            inner join Destinations D
+            left outer join Destinations D
             on
                 TD.lat = D.lat and
                 TD.lon = D.lon
+            where T.user_id = ?
             order by visit_date asc, visit_time asc
             """,
             (userid,)
@@ -125,7 +125,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         tripid = request.trip_id
         logging.info(f'{userid=} {tripid=}')
         cursor = sqlCursor(
-            """
+            """--sql
             select P.photo_id, P.name, P.url
             from Trips T
             inner join TripDestinations TD

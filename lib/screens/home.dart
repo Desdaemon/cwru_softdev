@@ -31,7 +31,9 @@ extension LayerExt on Layers {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, this.initialPos}) : super(key: key);
+
+  final LatLng? initialPos;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -48,7 +50,6 @@ class _HomePageState extends State<HomePage> {
   static const _maxZoom = 18.0;
   static const _minZoom = 1.0;
 
-  int _counter = 0;
   bool _controllerReady = false;
 
   bool get _isDark => MediaQuery.of(context).platformBrightness == Brightness.dark;
@@ -125,7 +126,7 @@ class _HomePageState extends State<HomePage> {
       body: FlutterMap(
         // CWRUs position
         options: MapOptions(
-          center: LatLng(41.5043453, -81.6105725),
+          center: widget.initialPos ?? LatLng(41.5043453, -81.6105725),
           zoom: _zoom,
           maxZoom: _maxZoom,
           minZoom: _minZoom,
