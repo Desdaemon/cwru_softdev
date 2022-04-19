@@ -1,7 +1,14 @@
+blessed==1.19.1
+codefind==0.1.3
 grpcio==1.43.0
 grpcio-tools==1.43.0
+jurigged==0.4.1
 mypy-protobuf==3.2.0
+ovld==0.3.2
 protobuf==3.19.4
+PyJWT==2.3.0
 six==1.16.0
 types-futures==3.3.8
 types-protobuf==3.19.10
+watchdog==1.0.2
+wcwidth==0.2.5
