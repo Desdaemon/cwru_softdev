@@ -1,7 +1,7 @@
 pragma foreign_keys = on; -- disabled by default on SQLite
   
 create table Users(
-  user_id integer not null unique primary key autoincrement,
+  user_id integer primary key autoincrement,
   username varchar unique,
   email varchar,
   password varchar
@@ -17,7 +17,7 @@ create table Trips(
 );
 
 create table Photos(
-  photo_id integer not null unique primary key autoincrement,
+  photo_id integer primary key autoincrement,
   name varchar,
   url varchar,
   date_taken date
