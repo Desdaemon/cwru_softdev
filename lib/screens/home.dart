@@ -1,6 +1,7 @@
 import 'package:cwru_softdev/providers.dart';
 import 'package:cwru_softdev/screens/locations.dart';
 import 'package:cwru_softdev/screens/login.dart';
+import 'package:cwru_softdev/screens/prefs.dart';
 import 'package:cwru_softdev/screens/profile.dart';
 import 'package:cwru_softdev/screens/trips.dart';
 import 'package:cwru_softdev/widgets/cached_tile_provider.dart';
@@ -30,16 +31,16 @@ extension LayerExt on Layers {
       }[this]!;
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key, this.initialPos}) : super(key: key);
 
   final LatLng? initialPos;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   _HomePageState() {
     assert(
         const bool.hasEnvironment(_accessTokenEnv),
@@ -52,7 +53,13 @@ class _HomePageState extends State<HomePage> {
 
   bool _controllerReady = false;
 
-  bool get _isDark => MediaQuery.of(context).platformBrightness == Brightness.dark;
+  bool get _isDark {
+    final theme = ref.watch(themeMode);
+    if (theme == ThemeMode.system) {
+      return MediaQuery.of(context).platformBrightness == Brightness.dark;
+    }
+    return theme == ThemeMode.dark;
+  }
 
   String get _url => _isDark ? Layers.dark.url : Layers.light.url;
 
@@ -85,6 +92,7 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: Column(
           children: [
+            const UserAccountsDrawerHeader(accountName: Text('Foo'), accountEmail: Text('asd@asd.com')),
             ListTile(
               title: const Text('Profile'),
               onTap: () {
@@ -106,6 +114,15 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                   return const TripsPage();
+                }));
+              },
+            ),
+            ListTile(
+              title: const Text('Preferences'),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                  // clear state
+                  return const PreferencesPage();
                 }));
               },
             ),
@@ -196,30 +213,8 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.map),
-      //       label: 'Map',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.add_circle_outline),
-      //       label: 'New Trip',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.list),
-      //       label: 'Trips',
-      //     ),
-      //   ],
-      //   currentIndex: _counter,
-      //   onTap: (index) {
-      //     setState(() {
-      //       _counter = (_counter + 1) % 3;
-      //     });
-      //   },
-      // ),
+      // floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
     );
   }
 }
