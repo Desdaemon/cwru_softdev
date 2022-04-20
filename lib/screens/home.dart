@@ -101,7 +101,13 @@ class _HomePageState extends ConsumerState<HomePage> {
       drawer: Drawer(
         child: Column(
           children: [
-            const UserAccountsDrawerHeader(accountName: Text('Foo'), accountEmail: Text('asd@asd.com')),
+            Consumer(builder: (ctx, ref, _) {
+              final user_ = ref.watch(user);
+              return UserAccountsDrawerHeader(
+                accountName: user_ == null ? const Text('Welcome') : Text(user_.username),
+                accountEmail: user_ == null ? null : Text(user_.email),
+              );
+            }),
             ListTile(
               title: const Text('Profile'),
               onTap: () {
@@ -157,7 +163,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           maxZoom: _maxZoom,
           minZoom: _minZoom,
           enableMultiFingerGestureRace: true,
-          onLongPress: (_, coord) {
+          onTap: (_, coord) {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => Locations(coord: coord)),
             );
