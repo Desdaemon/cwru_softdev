@@ -17,7 +17,16 @@ const _accessToken = String.fromEnvironment(_accessTokenEnv);
 
 final _markers = Provider((ref) {
   final locs = ref.watch(locations);
-  return locs.map((coord) => Marker(point: coord, builder: (_) => MapPin(coord: coord))).toList(growable: false);
+  return locs.map((coord) {
+    final latlng = LatLng(coord.coords.lat, coord.coords.lon);
+    return Marker(
+      point: latlng,
+      builder: (_) => MapPin(
+        coord: latlng,
+        description: coord.description,
+      ),
+    );
+  }).toList(growable: false);
 });
 
 enum Layers { dark, light }
@@ -184,19 +193,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                       },
                     ),
                     StreamBuilder(
-                        // listen to events emitted by the controller as well
-                        stream: _controller.mapEventStream,
-                        builder: (context, _) {
-                          return RotatedBox(
-                            quarterTurns: 3,
-                            child: Slider(
-                              max: _maxZoom,
-                              min: _minZoom,
-                              value: _zoom,
-                              onChanged: _zoomTo,
-                            ),
-                          );
-                        }),
+                      // listen to events emitted by the controller as well
+                      stream: _controller.mapEventStream,
+                      builder: (context, _) {
+                        return RotatedBox(
+                          quarterTurns: 3,
+                          child: Slider(
+                            max: _maxZoom,
+                            min: _minZoom,
+                            value: _zoom,
+                            onChanged: _zoomTo,
+                          ),
+                        );
+                      },
+                    ),
                     IconButton(
                       icon: const Icon(Icons.remove),
                       onPressed: () {
