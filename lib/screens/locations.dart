@@ -1,12 +1,17 @@
 import 'package:cwru_softdev/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
 
 class Locations extends ConsumerStatefulWidget {
-  final LatLng coord;
+  final Destination destination;
+  final bool editing;
 
-  const Locations({Key? key, required this.coord}) : super(key: key);
+  const Locations({
+    Key? key,
+    required Destination coord,
+    this.editing = false,
+  })  : destination = coord,
+        super(key: key);
 
   @override
   _LocationsState createState() => _LocationsState();
@@ -30,6 +35,7 @@ class _LocationsState extends ConsumerState<Locations> {
                 children: [
                   Text('Add location', style: Theme.of(context).textTheme.titleLarge),
                   TextFormField(
+                    initialValue: widget.destination.description,
                     decoration: const InputDecoration(hintText: 'Location name (Home, class etc.)'),
                     onChanged: (val) {
                       name = val;
@@ -39,20 +45,48 @@ class _LocationsState extends ConsumerState<Locations> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () {
-                          final description = name;
                           final locs = ref.read(locations.state);
                           Navigator.of(context).pop();
-                          locs.state = [
-                            ...locs.state,
-                            Destination(
-                              coords: Coords(lat: widget.coord.latitude, lon: widget.coord.longitude),
-                              description: description,
-                            )
-                          ];
+                          if (widget.editing) {
+                            locs.state = [
+                              for (final item in locs.state)
+                                if (item.coords == widget.destination.coords)
+                                  Destination(coords: item.coords, description: name)
+                                else
+                                  item
+                            ];
+                          } else {
+                            locs.state = [
+                              ...locs.state,
+                              Destination(
+                                coords: widget.destination.coords,
+                                description: name,
+                              )
+                            ];
+                          }
                         },
-                        icon: const Icon(Icons.add),
-                        label: const Text('Add location'),
-                      )
+                        icon: widget.editing ? const Icon(Icons.edit) : const Icon(Icons.add),
+                        label: widget.editing ? const Text('Edit location') : const Text('Add location'),
+                      ),
+                      if (widget.editing)
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            final locs = ref.read(locations.state);
+                            Navigator.of(context).pop();
+                            locs.state = [
+                              for (final item in locs.state)
+                                if (item.coords != widget.destination.coords) item
+                            ];
+                          },
+                          icon: const Icon(Icons.delete),
+                          label: const Text('Delete location'),
+                          style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
+                            backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).colorScheme.onError,
+                            ),
+                          ),
+                        )
                     ],
                   )
                 ],

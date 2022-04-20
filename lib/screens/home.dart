@@ -7,7 +7,7 @@ import 'package:cwru_softdev/screens/trips.dart';
 import 'package:cwru_softdev/widgets/cached_tile_provider.dart';
 import 'package:cwru_softdev/widgets/map_pin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/flutter_map.dart' hide Coords;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:blur/blur.dart';
@@ -165,7 +165,16 @@ class _HomePageState extends ConsumerState<HomePage> {
           enableMultiFingerGestureRace: true,
           onTap: (_, coord) {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => Locations(coord: coord)),
+              MaterialPageRoute(
+                builder: (_) => Locations(
+                  coord: Destination(
+                    coords: Coords(
+                      lat: coord.latitude,
+                      lon: coord.longitude,
+                    ),
+                  ),
+                ),
+              ),
             );
           },
         ),
