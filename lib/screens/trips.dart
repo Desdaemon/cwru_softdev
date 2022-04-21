@@ -1,5 +1,6 @@
 import 'package:cwru_softdev/providers.dart';
 import 'package:cwru_softdev/screens/timeline.dart';
+import 'package:cwru_softdev/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,8 +13,11 @@ class TripsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(userTrips);
     return data.map(
+      error: (_) => const Text('Error'),
+      loading: (_) => const CircularProgressIndicator(),
       data: (data) {
         return Scaffold(
+          drawer: const AppDrawer(),
           body: CenterFrame(
             CustomScrollView(
               slivers: [
@@ -76,8 +80,6 @@ class TripsPage extends ConsumerWidget {
           ),
         );
       },
-      error: (_) => const Text('Error'),
-      loading: (_) => const CircularProgressIndicator(),
     );
   }
 }

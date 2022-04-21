@@ -1,4 +1,5 @@
 import 'package:cwru_softdev/providers.dart';
+import 'package:cwru_softdev/widgets/app_drawer.dart';
 import 'package:cwru_softdev/widgets/center_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,6 +58,7 @@ class _LocationsState extends ConsumerState<Locations> {
             ? const Text('New Location')
             : Text('Edit "${widget.destination.description}"'),
       ),
+      drawer: const AppDrawer(),
       body: CenterFrame(Card(
         margin: const EdgeInsets.all(16),
         child: Padding(

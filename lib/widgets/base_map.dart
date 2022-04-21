@@ -64,7 +64,6 @@ class _BaseMapState extends ConsumerState<BaseMap> {
   @override
   void initState() {
     super.initState();
-    debugPrint('initialPos: ${widget.initialPos ?? 'null'}');
     _controller = widget.controller ?? MapController();
   }
 

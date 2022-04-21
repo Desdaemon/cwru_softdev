@@ -1,5 +1,9 @@
 import 'package:cwru_softdev/providers.dart';
+import 'package:cwru_softdev/screens/home.dart';
 import 'package:cwru_softdev/screens/login.dart';
+import 'package:cwru_softdev/screens/prefs.dart';
+import 'package:cwru_softdev/screens/profile.dart';
+import 'package:cwru_softdev/screens/trips.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,9 +31,14 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
           ),
         ),
-        home: const Scaffold(
-          body: LoginScreen(),
-        ),
+        initialRoute: '/login',
+        routes: {
+          '/': (context) => const HomePage(),
+          '/login': (context) => const LoginScreen(),
+          '/prefs': (context) => const PreferencesPage(),
+          '/profile': (context) => const ProfilePage(),
+          '/trips': (context) => const TripsPage(),
+        },
       );
     });
   }

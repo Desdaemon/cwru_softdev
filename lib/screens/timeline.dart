@@ -1,19 +1,21 @@
 import 'package:cwru_softdev/providers.dart';
+import 'package:cwru_softdev/widgets/app_drawer.dart';
 import 'package:cwru_softdev/widgets/base_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
-class TimelinePage extends StatefulWidget {
+class TimelinePage extends ConsumerStatefulWidget {
   const TimelinePage(this.trip, {Key? key}) : super(key: key);
   final Trip trip;
 
   @override
-  State<TimelinePage> createState() => _TimelinePageState();
+  ConsumerState<TimelinePage> createState() => _TimelinePageState();
 }
 
-class _TimelinePageState extends State<TimelinePage> {
+class _TimelinePageState extends ConsumerState<TimelinePage> {
   late MapController _controller;
   late List<LatLng> coords;
 
@@ -64,10 +66,7 @@ class _TimelinePageState extends State<TimelinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Timeline')),
-      // bottomSheet: BottomSheet(
-      //   builder: _buildBottomSheet,
-      //   onClosing: () {},
-      // ),
+      drawer: const AppDrawer(),
       body: BaseMap(
         controller: _controller,
         layers: [

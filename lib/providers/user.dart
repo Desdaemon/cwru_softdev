@@ -31,4 +31,8 @@ class UserProvider extends StateNotifier<User?> {
     if (res.hasUser()) state = res.user;
     return res;
   }
+
+  void logout() {
+    state = null;
+  }
 }

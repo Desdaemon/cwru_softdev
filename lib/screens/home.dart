@@ -1,9 +1,6 @@
 import 'package:cwru_softdev/providers.dart';
 import 'package:cwru_softdev/screens/locations.dart';
-import 'package:cwru_softdev/screens/login.dart';
-import 'package:cwru_softdev/screens/prefs.dart';
-import 'package:cwru_softdev/screens/profile.dart';
-import 'package:cwru_softdev/screens/trips.dart';
+import 'package:cwru_softdev/widgets/app_drawer.dart';
 import 'package:cwru_softdev/widgets/base_map.dart';
 import 'package:cwru_softdev/widgets/map_pin.dart';
 import 'package:flutter/material.dart';
@@ -81,64 +78,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       extendBodyBehindAppBar: true,
-      drawer: Drawer(
-        child: Column(
-          children: [
-            Consumer(builder: (ctx, ref, _) {
-              final user_ = ref.watch(user);
-              return UserAccountsDrawerHeader(
-                accountName: user_ == null ? const Text('Welcome') : Text(user_.username),
-                accountEmail: user_ == null ? null : Text(user_.email),
-              );
-            }),
-            ListTile(
-              title: const Text('Profile'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  return const ProfilePage();
-                }));
-              },
-            ),
-            ListTile(
-              title: const Text('Map'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  return const HomePage();
-                }));
-              },
-            ),
-            ListTile(
-              title: const Text('Trips'),
-              onTap: () {
-                ref.refresh(userTrips);
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  return const TripsPage();
-                }));
-              },
-            ),
-            ListTile(
-              title: const Text('Preferences'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  // clear state
-                  return const PreferencesPage();
-                }));
-              },
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  // clear state
-                  return const Scaffold(
-                    body: LoginScreen(),
-                  );
-                }));
-              },
-            )
-          ],
-        ),
-      ),
+      drawer: const AppDrawer(),
       body: BaseMap(
         controller: _controller,
         onTap: (_, coord) {
