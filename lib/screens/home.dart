@@ -4,7 +4,7 @@ import 'package:cwru_softdev/screens/login.dart';
 import 'package:cwru_softdev/screens/prefs.dart';
 import 'package:cwru_softdev/screens/profile.dart';
 import 'package:cwru_softdev/screens/trips.dart';
-import 'package:cwru_softdev/widgets/cached_tile_provider.dart';
+import 'package:cwru_softdev/widgets/base_map.dart';
 import 'package:cwru_softdev/widgets/map_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' hide Coords;
@@ -50,27 +50,10 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  _HomePageState() {
-    assert(
-        const bool.hasEnvironment(_accessTokenEnv),
-        'MapBox token not provided.\n'
-        "Define one by using '--dart-define=$_accessTokenEnv=..'");
-  }
-
   static const _maxZoom = 18.0;
   static const _minZoom = 1.0;
 
   bool _controllerReady = false;
-
-  bool get _isDark {
-    final theme = ref.watch(themeMode);
-    if (theme == ThemeMode.system) {
-      return MediaQuery.of(context).platformBrightness == Brightness.dark;
-    }
-    return theme == ThemeMode.dark;
-  }
-
-  String get _url => _isDark ? Layers.dark.url : Layers.light.url;
 
   late MapController _controller;
 
@@ -155,39 +138,22 @@ class _HomePageState extends ConsumerState<HomePage> {
           ],
         ),
       ),
-      body: FlutterMap(
-        // CWRUs position
-        options: MapOptions(
-          center: widget.initialPos ?? LatLng(41.5043453, -81.6105725),
-          zoom: _zoom,
-          maxZoom: _maxZoom,
-          minZoom: _minZoom,
-          enableMultiFingerGestureRace: true,
-          onTap: (_, coord) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => Locations(
-                  coord: Destination(
-                    coords: Coords(
-                      lat: coord.latitude,
-                      lon: coord.longitude,
-                    ),
+      body: BaseMap(
+        controller: _controller,
+        onTap: (_, coord) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => Locations(
+                coord: Destination(
+                  coords: Coords(
+                    lat: coord.latitude,
+                    lon: coord.longitude,
                   ),
                 ),
               ),
-            );
-          },
-        ),
-        mapController: _controller,
-        layers: [
-          TileLayerOptions(
-            tileSize: 512,
-            zoomOffset: -1,
-            tileProvider: const CachedTileProvider(),
-            urlTemplate: _url,
-            backgroundColor: Theme.of(context).backgroundColor,
-          ),
-        ],
+            ),
+          );
+        },
         nonRotatedChildren: [
           Consumer(
             builder: (_ctx, ref, _) => MarkerLayerWidget(
@@ -209,7 +175,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     StreamBuilder(
                       // listen to events emitted by the controller as well
-                      stream: _controller.mapEventStream,
+                      // stream: _controller.mapEventStream,
                       builder: (context, _) {
                         return RotatedBox(
                           quarterTurns: 3,
@@ -237,9 +203,79 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           )
         ],
-      ),
-      // floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      )
+      // FlutterMap(
+      //   // CWRUs position
+      //   options: MapOptions(
+      //     center: widget.initialPos ?? LatLng(41.5043453, -81.6105725),
+      //     zoom: _zoom,
+      //     maxZoom: _maxZoom,
+      //     minZoom: _minZoom,
+      //     enableMultiFingerGestureRace: true,
+      //     onTap: (_, coord) {
+      //     },
+      //   ),
+      //   mapController: _controller,
+      //   layers: [
+      //     TileLayerOptions(
+      //       tileSize: 512,
+      //       zoomOffset: -1,
+      //       tileProvider: const CachedTileProvider(),
+      //       urlTemplate: _url,
+      //       backgroundColor: Theme.of(context).backgroundColor,
+      //     ),
+      //   ],
+      //   nonRotatedChildren: [
+      //     Consumer(
+      //       builder: (_ctx, ref, _) => MarkerLayerWidget(
+      //         options: MarkerLayerOptions(markers: ref.watch(_markers)),
+      //       ),
+      //     ),
+      //     Stack(
+      //       children: [
+      //         Positioned(
+      //           right: 12,
+      //           bottom: 12,
+      //           child: Column(
+      //             children: [
+      //               IconButton(
+      //                 icon: const Icon(Icons.add),
+      //                 onPressed: () {
+      //                   _zoomTo(_zoom + 0.25);
+      //                 },
+      //               ),
+      //               StreamBuilder(
+      //                 // listen to events emitted by the controller as well
+      //                 stream: _controller.mapEventStream,
+      //                 builder: (context, _) {
+      //                   return RotatedBox(
+      //                     quarterTurns: 3,
+      //                     child: Slider(
+      //                       max: _maxZoom,
+      //                       min: _minZoom,
+      //                       value: _zoom,
+      //                       onChanged: _zoomTo,
+      //                     ),
+      //                   );
+      //                 },
+      //               ),
+      //               IconButton(
+      //                 icon: const Icon(Icons.remove),
+      //                 onPressed: () {
+      //                   _zoomTo(_zoom - 0.25);
+      //                 },
+      //               ),
+      //             ],
+      //           ).frosted(
+      //             frostColor: Theme.of(context).backgroundColor,
+      //             borderRadius: const BorderRadius.all(Radius.circular(25)),
+      //           ),
+      //         ),
+      //       ],
+      //     )
+      //   ],
+      // ),
+      ,
     );
   }
 }

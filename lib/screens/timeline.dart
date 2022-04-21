@@ -1,6 +1,7 @@
 import 'package:cwru_softdev/providers.dart';
 import 'package:cwru_softdev/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 
 class TimelinePage extends StatefulWidget {
@@ -15,10 +16,14 @@ class TimelinePage extends StatefulWidget {
 
 class _TimelinePageState extends State<TimelinePage> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Timeline')),
-      body: ListView.builder(
+  void initState() {
+    super.initState();
+  }
+
+  Widget _buildBottomSheet(BuildContext bc) {
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
         itemBuilder: (bc, idx) {
           if (widget.trip.stops.isEmpty) {
             return const Center(
@@ -40,6 +45,18 @@ class _TimelinePageState extends State<TimelinePage> {
         },
         itemCount: widget.trip.stops.length.clamp(1, double.infinity) as int,
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Timeline')),
+      bottomSheet: BottomSheet(
+        builder: _buildBottomSheet,
+        onClosing: () {},
+      ),
+      body: FlutterMap(options: MapOptions()),
     );
   }
 }

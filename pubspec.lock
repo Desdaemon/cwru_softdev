@@ -153,6 +153,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.0"
+  flutter_map_tappable_polyline:
+    dependency: "direct main"
+    description:
+      name: flutter_map_tappable_polyline
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   flutter_riverpod:
     dependency: "direct main"
     description:
@@ -214,6 +221,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
+  lint:
+    dependency: transitive
+    description:
+      name: lint
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.8.2"
   lints:
     dependency: transitive
     description:
@@ -443,6 +457,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  styled_widget:
+    dependency: "direct main"
+    description:
+      name: styled_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0+3"
   synchronized:
     dependency: transitive
     description:

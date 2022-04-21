@@ -41,6 +41,8 @@ dependencies:
   cached_network_image: ^3.2.0
   blur: ^3.0.0
   flutter_riverpod: ^1.0.3
+  styled_widget: ^0.4.0+3
+  flutter_map_tappable_polyline: ^3.1.0
 
 dev_dependencies:
   flutter_test:
