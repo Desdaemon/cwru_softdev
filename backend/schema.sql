@@ -70,12 +70,19 @@ insert into Trips(start_date, end_date, user_id) values
 insert into Destinations values
   (42, -12.12, '1998-02-04', '23:59:59', null),
   (42.72, -12.13, '1998-02-06', '23:59:59', null),
-  (42.92, -12.13, '1998-02-06', '23:59:59', null);
+  (42.92, -12.13, '1998-02-06', '23:59:59', null),
+  -- Paris, France
+  (48.856613, 2.352222, '2012-12-12', '12:12:12', null),
+  -- Frankfurt, Germany
+  (50.116667, 8.683333, '2012-12-13', '12:12:12', null);
+
 
 insert into TripDestinations values
   (1, 42, -12.12),
   (1, 42.72, -12.13),
-  (1, 42.92, -12.13);
+  (1, 42.92, -12.13),
+  (2, 48.856613, 2.352222),
+  (2, 50.116667, 8.683333);
 
 insert into Photos values
   (1, 'Clowns at the Circus', 'https://donttrythisathome.clown/196b3/98/02/12', '1998-02-12'),

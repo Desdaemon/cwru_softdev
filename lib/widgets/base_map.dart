@@ -25,6 +25,7 @@ class BaseMap extends ConsumerStatefulWidget {
   final List<Widget> nonRotatedChildren;
   final List<LayerOptions> layers;
   final MapController? controller;
+  final double zoom;
   final void Function(dynamic tapPosition, LatLng latlng)? onTap;
   const BaseMap({
     Key? key,
@@ -33,6 +34,7 @@ class BaseMap extends ConsumerStatefulWidget {
     this.layers = const [],
     this.onTap,
     this.controller,
+    this.zoom = 13,
   }) : super(key: key);
 
   @override
@@ -62,6 +64,7 @@ class _BaseMapState extends ConsumerState<BaseMap> {
   @override
   void initState() {
     super.initState();
+    debugPrint('initialPos: ${widget.initialPos ?? 'null'}');
     _controller = widget.controller ?? MapController();
   }
 
@@ -70,7 +73,7 @@ class _BaseMapState extends ConsumerState<BaseMap> {
     return FlutterMap(
       options: MapOptions(
         center: widget.initialPos ?? LatLng(41.5043453, -81.6105725),
-        zoom: 16,
+        zoom: widget.zoom,
         enableMultiFingerGestureRace: true,
         onTap: widget.onTap,
       ),
