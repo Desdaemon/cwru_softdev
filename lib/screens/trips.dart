@@ -44,7 +44,7 @@ class TripsPage extends ConsumerWidget {
                           child: Column(
                             children: [
                               AspectRatio(
-                                aspectRatio: 2,
+                                aspectRatio: 3,
                                 child: Container(
                                   padding: const EdgeInsets.all(4),
                                   alignment: Alignment.bottomLeft,

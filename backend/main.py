@@ -2,6 +2,7 @@ import grpc
 import sys
 import logging
 import sqlite3
+import socket
 from google.protobuf.timestamp_pb2 import Timestamp
 from typing import Iterator, Iterable, Any
 from concurrent import futures
@@ -225,8 +226,21 @@ def serve():
     greeter_pb2_grpc.add_UsersServicer_to_server(UsersServicer(), server)
     server.add_insecure_port(f'[::]:{PORT}')
     server.start()
-    logging.info(f'Server starting on port {PORT}')
+    logging.info(f'Server starting on port 0.0.0.0:{PORT} and {get_ip()}:{PORT}')
     server.wait_for_termination()
+
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.settimeout(0)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('10.255.255.255', 1))
+        IP = s.getsockname()[0]
+    except Exception:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
 
 
 if __name__ == '__main__':

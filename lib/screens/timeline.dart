@@ -25,30 +25,38 @@ class _TimelinePageState extends State<TimelinePage> {
       ..onReady.then((_) {
         final bounds = _controller.centerZoomFitBounds(LatLngBounds.fromPoints(coords));
         _controller.move(bounds.center, bounds.zoom - 0.5);
+        showModalBottomSheet(
+          context: context,
+          builder: _buildBottomSheet,
+          barrierColor: Colors.transparent,
+        );
       });
   }
 
   Widget _buildBottomSheet(BuildContext bc) {
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        itemBuilder: (bc, idx) {
-          if (widget.trip.stops.isEmpty) {
-            return const Center(
-              child: Text('This trip has no destinations.'),
+    return DraggableScrollableSheet(
+      expand: false,
+      builder: (context, controller) {
+        return ListView.builder(
+          controller: controller,
+          itemBuilder: (bc, idx) {
+            if (widget.trip.stops.isEmpty) {
+              return const Center(
+                child: Text('This trip has no destinations.'),
+              );
+            }
+            final item = widget.trip.stops[idx];
+            return ListTile(
+              title: Text('${item.coords.lat} / ${item.coords.lon}'),
+              subtitle: Text(item.visitTime.toDateTime().toLocal().toString()),
+              onTap: () {
+                _controller.move(LatLng(item.coords.lat, item.coords.lon), _controller.zoom);
+              },
             );
-          }
-          final item = widget.trip.stops[idx];
-          return ListTile(
-            title: Text('${item.coords.lat} / ${item.coords.lon}'),
-            subtitle: Text(item.visitTime.toDateTime().toLocal().toString()),
-            onTap: () {
-              _controller.move(LatLng(item.coords.lat, item.coords.lon), _controller.zoom);
-            },
-          );
-        },
-        itemCount: widget.trip.stops.length.clamp(1, double.infinity) as int,
-      ),
+          },
+          itemCount: widget.trip.stops.length.clamp(1, double.infinity) as int,
+        );
+      },
     );
   }
 
@@ -56,10 +64,10 @@ class _TimelinePageState extends State<TimelinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Timeline')),
-      bottomSheet: BottomSheet(
-        builder: _buildBottomSheet,
-        onClosing: () {},
-      ),
+      // bottomSheet: BottomSheet(
+      //   builder: _buildBottomSheet,
+      //   onClosing: () {},
+      // ),
       body: BaseMap(
         controller: _controller,
         layers: [

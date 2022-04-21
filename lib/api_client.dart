@@ -11,7 +11,7 @@ class ApiClient {
 }
 
 late final api = ApiClient.fromChannel(ClientChannel(
-  '127.0.0.1',
-  port: 50051,
+  const String.fromEnvironment('backend_host', defaultValue: 'localhost'),
+  port: const int.fromEnvironment('backend_port', defaultValue: 50051),
   options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
 ));

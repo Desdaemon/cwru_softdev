@@ -110,6 +110,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             ListTile(
               title: const Text('Trips'),
               onTap: () {
+                ref.refresh(userTrips);
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                   return const TripsPage();
                 }));
@@ -203,79 +204,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           )
         ],
-      )
-      // FlutterMap(
-      //   // CWRUs position
-      //   options: MapOptions(
-      //     center: widget.initialPos ?? LatLng(41.5043453, -81.6105725),
-      //     zoom: _zoom,
-      //     maxZoom: _maxZoom,
-      //     minZoom: _minZoom,
-      //     enableMultiFingerGestureRace: true,
-      //     onTap: (_, coord) {
-      //     },
-      //   ),
-      //   mapController: _controller,
-      //   layers: [
-      //     TileLayerOptions(
-      //       tileSize: 512,
-      //       zoomOffset: -1,
-      //       tileProvider: const CachedTileProvider(),
-      //       urlTemplate: _url,
-      //       backgroundColor: Theme.of(context).backgroundColor,
-      //     ),
-      //   ],
-      //   nonRotatedChildren: [
-      //     Consumer(
-      //       builder: (_ctx, ref, _) => MarkerLayerWidget(
-      //         options: MarkerLayerOptions(markers: ref.watch(_markers)),
-      //       ),
-      //     ),
-      //     Stack(
-      //       children: [
-      //         Positioned(
-      //           right: 12,
-      //           bottom: 12,
-      //           child: Column(
-      //             children: [
-      //               IconButton(
-      //                 icon: const Icon(Icons.add),
-      //                 onPressed: () {
-      //                   _zoomTo(_zoom + 0.25);
-      //                 },
-      //               ),
-      //               StreamBuilder(
-      //                 // listen to events emitted by the controller as well
-      //                 stream: _controller.mapEventStream,
-      //                 builder: (context, _) {
-      //                   return RotatedBox(
-      //                     quarterTurns: 3,
-      //                     child: Slider(
-      //                       max: _maxZoom,
-      //                       min: _minZoom,
-      //                       value: _zoom,
-      //                       onChanged: _zoomTo,
-      //                     ),
-      //                   );
-      //                 },
-      //               ),
-      //               IconButton(
-      //                 icon: const Icon(Icons.remove),
-      //                 onPressed: () {
-      //                   _zoomTo(_zoom - 0.25);
-      //                 },
-      //               ),
-      //             ],
-      //           ).frosted(
-      //             frostColor: Theme.of(context).backgroundColor,
-      //             borderRadius: const BorderRadius.all(Radius.circular(25)),
-      //           ),
-      //         ),
-      //       ],
-      //     )
-      //   ],
-      // ),
-      ,
+      ),
     );
   }
 }
