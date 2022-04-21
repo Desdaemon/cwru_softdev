@@ -44,6 +44,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-db
+*.db*
 .vscode/launch.json
-backend/test.db

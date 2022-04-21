@@ -3,6 +3,9 @@ import sys
 import logging
 import sqlite3
 import socket
+# from sonora.wsgi import grpcWSGI
+from grpcWSGI.server import grpcWSGI
+from wsgiref.simple_server import make_server
 from google.protobuf.timestamp_pb2 import Timestamp
 from typing import Iterator, Iterable, Any
 from concurrent import futures
@@ -226,8 +229,23 @@ def serve():
     greeter_pb2_grpc.add_UsersServicer_to_server(UsersServicer(), server)
     server.add_insecure_port(f'[::]:{PORT}')
     server.start()
-    logging.info(f'Server starting on port 0.0.0.0:{PORT} and {get_ip()}:{PORT}')
-    server.wait_for_termination()
+
+    grpcweb = grpcWSGI(None)
+    with make_server('', PORT + 1, grpcweb) as httpd:
+        greeter_pb2_grpc.add_TripsServicer_to_server(TripsServicer(), grpcweb)
+        greeter_pb2_grpc.add_UsersServicer_to_server(UsersServicer(), grpcweb)
+
+    # logging.info(f'🎉 Server starting on port 0.0.0.0:{PORT} and {get_ip()}:{PORT}')
+        ip = get_ip()
+        logging.info(
+        f'''
+🎉  Server starting on:
+- Local:   0.0.0.0:{PORT}
+- Network: {ip}:{PORT}
+- Web:     {ip}:{PORT + 1} (Experimental)'''
+        )
+        httpd.serve_forever()
+        server.wait_for_termination()
 
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

@@ -1,4 +1,5 @@
-pragma foreign_keys = on; -- disabled by default on SQLite
+pragma foreign_keys = on;  -- disabled by default on SQLite
+pragma journal_mode = WAL; -- extra performance
   
 create table Users(
   user_id integer primary key autoincrement,

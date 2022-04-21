@@ -1,17 +1,22 @@
 import 'package:cwru_softdev/generated/greeter.pbgrpc.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ApiClient {
   final UsersClient users;
   final TripsClient trips;
 
-  ApiClient.fromChannel(ClientChannel channel)
+  ApiClient.fromChannel(GrpcOrGrpcWebClientChannel channel)
       : users = UsersClient(channel),
         trips = TripsClient(channel);
 }
 
-late final api = ApiClient.fromChannel(ClientChannel(
-  const String.fromEnvironment('backend_host', defaultValue: 'localhost'),
-  port: const int.fromEnvironment('backend_port', defaultValue: 50051),
-  options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+const port = int.fromEnvironment('backend_port', defaultValue: 50051);
+const webPort = int.fromEnvironment('web_backend_port', defaultValue: port + 1);
+
+late final api = ApiClient.fromChannel(GrpcOrGrpcWebClientChannel.toSeparatePorts(
+  host: const String.fromEnvironment('backend_host', defaultValue: 'localhost'),
+  grpcPort: port,
+  grpcWebPort: webPort,
+  grpcTransportSecure: false,
+  grpcWebTransportSecure: false,
 ));
