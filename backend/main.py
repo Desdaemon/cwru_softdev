@@ -15,6 +15,8 @@ from generated.greeter_pb2 import *
 PORT = 50051
 DBPATH = 'test.db'
 
+sqlite3.register_adapter(Timestamp, lambda x: x.SerializeToString())
+
 
 def prepareDb(dbpath: str):
     with open(dbpath, 'w') as _:
@@ -205,14 +207,14 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         coords = request.coords
         photos = request.photos
         with connect() as con:
-            photoids = sql(
-                'insert into Photos(name, url, date_taken) values (?, ?, ?) returning photo_id',
-                [
-                    (photo.name, photo.url, photo.date_taken)
-                    for photo in photos
-                ],
-                con
-            )
+            photoids = [
+                sql(
+                    'insert into Photos(name, url, date_taken) values (?, ?, ?) returning photo_id',
+                    (photo.name, '', ''),
+                    con
+                )[0]
+                for photo in photos
+            ]
             assert len(photoids) == len(
                 photos), f'expect all photos to be added ({len(photoids)=} == {len(photos)=})'
             sql(
@@ -229,7 +231,6 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
 def serve():
     prepareDb(DBPATH)
 
-    sqlite3.register_adapter(Timestamp, lambda x: x.SerializeToString())
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     greeter_pb2_grpc.add_TripsServicer_to_server(TripsServicer(), server)
     greeter_pb2_grpc.add_UsersServicer_to_server(UsersServicer(), server)

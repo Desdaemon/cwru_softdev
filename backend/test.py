@@ -13,6 +13,7 @@ class UsersTests(unittest.TestCase):
     users = UsersServicer()
 
     def setUp(self):
+        # reset the DB every test
         prepareDb(TEST_DB)
 
     def test_register(self):
@@ -79,25 +80,53 @@ class TripsTest(unittest.TestCase):
         prepareDb(TEST_DB)
 
     def test_trips_of(self):
-        pass
+        res = self.trips.TripsOf(TripsOfRequest(
+            user_id=1  # foo
+        ), CTX)
+        self.assertTrue(len(res.trips))
 
     def test_trips_of_nonexistent_user(self):
-        pass
+        res = self.trips.TripsOf(TripsOfRequest(user_id=0), CTX)
+        self.assertFalse(len(res.trips))
 
     def test_trips_of_user_with_no_trips(self):
-        pass
+        res = self.trips.TripsOf(TripsOfRequest(
+            user_id=2  # bar
+        ), CTX)
+        self.assertFalse(len(res.trips))
 
     def test_photos_of(self):
-        pass
+        res = self.trips.PhotosOf(PhotosOfRequest(
+            user_id=1,
+            trip_id=1
+        ), CTX)
+        self.assertTrue(len([*res]), 'foo should have some photos')
 
-    def test_photos_of_nonexistest_user(self):
-        pass
+    def test_photos_of_nonexistent_user(self):
+        res = self.trips.PhotosOf(PhotosOfRequest(
+            user_id=0,
+            trip_id=1
+        ), CTX)
+        self.assertFalse(len([*res]), 'user id 0 does not own trip id 1')
 
     def test_photos_of_user_with_no_photos(self):
-        pass
+        res = self.trips.PhotosOf(PhotosOfRequest(
+            user_id=2,
+            trip_id=1
+        ), CTX)
+        self.assertFalse(len([*res]))
 
     def test_add_trip(self):
-        pass
+        res = self.trips.AddTrip(AddTripRequest(
+            user_id=1,
+            trips=[Trip(
+                stops=[
+                    Destination(coords=Coords(lat=12, lon=12)),
+                    Destination(coords=Coords(lat=13, lon=13)),
+                ]
+            )]
+        ), CTX)
+        self.assertFalse(len(res.errors))
 
     def test_add_trip_null_value(self):
         pass
@@ -106,10 +135,11 @@ class TripsTest(unittest.TestCase):
         pass
 
     def test_add_photo(self):
-        pass
-
-    def test_add_photo_null_value(self):
-        pass
+        res = self.trips.AddPhotoToDestination(AddDestPhotoRequest(
+            coords=Coords(lat=0, lon=0),
+            photos=[Photo(url='bogus')]
+        ), CTX)
+        self.assertFalse(len(res.errors))
 
     def test_add_photo_invalid_value(self):
         pass

@@ -2,6 +2,8 @@
 
 ## Setup
 
+Requires Python 3.
+
 ```shell
 pip install -r requirements.txt
 ```
@@ -10,4 +12,10 @@ pip install -r requirements.txt
 
 ```shell
 jurigged main.py
+```
+
+## Run tests
+
+```shell
+python test.py
 ```
