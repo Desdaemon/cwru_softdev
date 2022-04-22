@@ -127,12 +127,29 @@ class TripsTest(unittest.TestCase):
         ), CTX)
         self.assertFalse(len(res.errors))
 
+    def test_add_trip_to_nonexistent_user(self):
+        try:
+            self.trips.AddTrip(AddTripRequest(user_id=0), CTX)
+            self.fail('Failed to catch adding to user 0')
+        except:
+            pass
+
     def test_add_photo(self):
-        res = self.trips.AddPhotoToDestination(AddDestPhotoRequest(
-            coords=Coords(lat=0, lon=0),
+        self.trips.AddPhotoToDestination(AddDestPhotoRequest(
+            # There should be a coordinate like this in the DB
+            coords=Coords(lat=42, lon=-12.12),
             photos=[Photo(url='bogus')]
         ), CTX)
-        self.assertFalse(len(res.errors))
+
+    def test_add_photo_to_nonexistent_user(self):
+        try:
+            self.trips.AddPhotoToDestination(AddDestPhotoRequest(
+                coords=Coords(lat=0, lon=0),
+                photos=[Photo(url='bogus')]
+            ), CTX)
+            self.fail('Failed to catch add to coord 0, 0')
+        except:
+            pass
 
 
 if __name__ == "__main__":

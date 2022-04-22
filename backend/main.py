@@ -26,7 +26,10 @@ def prepareDb(dbpath: str):
             con.executescript(f.read())
 
 
-def connect(): return sqlite3.connect(DBPATH)
+def connect():
+    con = sqlite3.connect(DBPATH)
+    con.executescript('pragma foreign_keys = on; pragma journal_mode = WAL;')
+    return con
 
 
 def sql(query: str,
@@ -221,15 +224,16 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
             ]
             assert len(photoids) == len(
                 photos), f'expect all photos to be added ({len(photoids)=} == {len(photos)=})'
-            sql(
+            cur = con.executemany(
                 'insert into DestinationPhotos(lat, lon, photo_id) values (?, ?, ?)',
                 [
                     (coords.lat, coords.lon, id)
                     for id, in photoids
                 ],
-                con
             )
-        return Result()
+            assert cur.rowcount == len(
+                photoids), f'expected {cur.rowcount=} == {len(photoids)=}'
+            return Result()
 
 
 def serve():
