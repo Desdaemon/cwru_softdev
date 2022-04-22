@@ -172,8 +172,10 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
             for trip in request.trips:
                 sql(
                     'insert into Destinations(lat, lon) values(?, ?)',
-                    [(stop.coords.lat, stop.coords.lon)
-                     for stop in trip.stops],
+                    [
+                        (stop.coords.lat, stop.coords.lon)
+                        for stop in trip.stops
+                    ],
                     con
                 )
                 new_trip = sql(
@@ -208,9 +210,11 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         photos = request.photos
         with connect() as con:
             photoids = [
+                # SQL bindings do not allow multiple execution with data-returning statements,
+                # so flatten them out manually here.
                 sql(
                     'insert into Photos(name, url, date_taken) values (?, ?, ?) returning photo_id',
-                    (photo.name, '', ''),
+                    (photo.name, photo.url, photo.date_taken),
                     con
                 )[0]
                 for photo in photos

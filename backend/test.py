@@ -53,7 +53,6 @@ class UsersTests(unittest.TestCase):
     def test_login_null_value(self):
         user = self.users.Login(LoginRequest(), CTX)
         # in gRPC, no attributes are ever null
-        # except when we pass null ourselves
         # so just assert that we DID pass an error message
         self.assertTrue(user.error)
         user = self.users.Login(LoginRequest(
@@ -128,21 +127,12 @@ class TripsTest(unittest.TestCase):
         ), CTX)
         self.assertFalse(len(res.errors))
 
-    def test_add_trip_null_value(self):
-        pass
-
-    def test_add_trip_invalid_value(self):
-        pass
-
     def test_add_photo(self):
         res = self.trips.AddPhotoToDestination(AddDestPhotoRequest(
             coords=Coords(lat=0, lon=0),
             photos=[Photo(url='bogus')]
         ), CTX)
         self.assertFalse(len(res.errors))
-
-    def test_add_photo_invalid_value(self):
-        pass
 
 
 if __name__ == "__main__":
