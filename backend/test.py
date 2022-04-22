@@ -1,13 +1,26 @@
 import unittest
+from generated.greeter_pb2 import *
 
-from backend.main import TripsServicer, UsersServicer
+from main import TripsServicer, UsersServicer, prepareDb
+
+TEST_DB = 'test.db'
 
 
 class UsersTests(unittest.TestCase):
     users = UsersServicer()
 
+    def setUp(self):
+        prepareDb(TEST_DB)
+
     def test_register(self):
-        pass
+        user = self.users.Register(RegisterRequest(
+            username='foobar',
+            email='food@food.com',
+            password='hunter3'
+        ), None)
+        self.assertIsNotNone(user.user)
+        self.assertEqual(user.user.username, 'foobar')
+        self.assertEqual(user.user.email, 'food@food.com')
 
     def test_register_null_value(self):
         pass
@@ -16,7 +29,11 @@ class UsersTests(unittest.TestCase):
         pass
 
     def test_login(self):
-        pass
+        user = self.users.Login(LoginRequest(
+            identity='foo',
+            password='hunter2'
+        ), None)
+        self.assertIsNotNone(user.user)
 
     def test_login_null_value(self):
         pass
@@ -27,6 +44,9 @@ class UsersTests(unittest.TestCase):
 
 class TripsTest(unittest.TestCase):
     trips = TripsServicer()
+
+    def setUp(self):
+        prepareDb(TEST_DB)
 
     def test_trips_of(self):
         pass

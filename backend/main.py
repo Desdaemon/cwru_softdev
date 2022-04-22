@@ -15,20 +15,26 @@ from generated.greeter_pb2 import *
 PORT = 50051
 DBPATH = 'test.db'
 
+
 def prepareDb(dbpath: str):
     with open(dbpath, 'w') as _:
-        pass # truncate and close immediately
+        pass  # truncate and close immediately
+    with open('schema.sql', 'r') as f:
+        with sqlite3.connect(DBPATH) as con:
+            con.executescript(f.read())
+
 
 def connect(): return sqlite3.connect(DBPATH)
 
+
 def sql(query: str,
-        params = (),
-        with_con = None) -> list[tuple]:
+        params=(),
+        with_con=None) -> list[tuple]:
     """
     Wrapper around sqlite.Connection.{execute, executemany}.
 
     Pass a tuple for single execution, or an iterable for parameterized execution.
-    
+
     Pass an optional third argument as the connection to use.
     """
     def _call(con: sqlite3.Connection):
@@ -44,6 +50,7 @@ def sql(query: str,
         with connect() as con:
             return _call(con)
 
+
 def sqlCursor(query: str, params=(), batch_size=16) -> Iterator[tuple]:
     with connect() as con:
         cursor = con.execute(query, params)
@@ -52,6 +59,7 @@ def sqlCursor(query: str, params=(), batch_size=16) -> Iterator[tuple]:
         except sqlite3.Error as error:
             logging.error(error)
             return
+
 
 class UsersServicer(greeter_pb2_grpc.UsersServicer):
     def Register(self, request: RegisterRequest, context: grpc.ServicerContext) -> UserResponse:
@@ -118,7 +126,7 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         for trip_id, lat, lon in stops:
             trips.setdefault(trip_id, []).append(
                 Destination(coords=Coords(lat=lat, lon=lon)))
-    
+
         return TripsOfResponse(trips=[
             Trip(trip_id=int(trip_id), stops=stops)
             for trip_id, stops in trips.items()
@@ -162,7 +170,8 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
             for trip in request.trips:
                 sql(
                     'insert into Destinations(lat, lon) values(?, ?)',
-                    [ (stop.coords.lat, stop.coords.lon) for stop in trip.stops ],
+                    [(stop.coords.lat, stop.coords.lon)
+                     for stop in trip.stops],
                     con
                 )
                 new_trip = sql(
@@ -170,7 +179,8 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
                     (userid,),
                     con
                 )
-                assert len(new_trip) == 1, f'expected single trip, got {len(new_trip)}'
+                assert len(
+                    new_trip) == 1, f'expected single trip, got {len(new_trip)}'
                 tripid, = new_trip[0]
                 sql(
                     'insert into TripDestinations(trip_id, lat, lon) values (?, ?, ?)',
@@ -182,7 +192,6 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
                 )
         return Result()
 
-
     def DeleteTrip(self, request: DeleteTripRequest, context: grpc.ServicerContext) -> Result:
         userid = request.user_id
         tripid = request.trip_id
@@ -192,7 +201,6 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
         )
         return Result()
 
-    
     def AddPhotoToDestination(self, request: AddDestPhotoRequest, context: grpc.ServicerContext) -> Result:
         coords = request.coords
         photos = request.photos
@@ -205,7 +213,8 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
                 ],
                 con
             )
-            assert len(photoids) == len(photos), f'expect all photos to be added ({len(photoids)=} == {len(photos)=})'
+            assert len(photoids) == len(
+                photos), f'expect all photos to be added ({len(photoids)=} == {len(photos)=})'
             sql(
                 'insert into DestinationPhotos(lat, lon, photo_id) values (?, ?, ?)',
                 [
@@ -219,9 +228,6 @@ class TripsServicer(greeter_pb2_grpc.TripsServicer):
 
 def serve():
     prepareDb(DBPATH)
-    with open('schema.sql', 'r') as f:
-        with sqlite3.connect(DBPATH) as con:
-            con.executescript(f.read())
 
     sqlite3.register_adapter(Timestamp, lambda x: x.SerializeToString())
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -238,7 +244,7 @@ def serve():
     # logging.info(f'🎉 Server starting on port 0.0.0.0:{PORT} and {get_ip()}:{PORT}')
         ip = get_ip()
         logging.info(
-        f'''
+            f'''
 🎉  Server starting on:
 - Local:   0.0.0.0:{PORT}
 - Network: {ip}:{PORT}
@@ -246,6 +252,7 @@ def serve():
         )
         httpd.serve_forever()
         server.wait_for_termination()
+
 
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -270,4 +277,3 @@ Press Enter to acknowledge this message.
     logging.basicConfig(stream=sys.stdout, level=logging.INFO,
                         format='[%(asctime)s %(levelname)s] (%(funcName)s) %(message)s')
     serve()
-
