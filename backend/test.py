@@ -151,6 +151,13 @@ class TripsTest(unittest.TestCase):
         except:
             pass
 
+    def test_delete_trip(self):
+        res = self.trips.DeleteTrip(DeleteTripRequest(
+            user_id=1,
+            trip_id=1
+        ), CTX)
+        self.assertFalse(len(res.errors))
+
 
 if __name__ == "__main__":
     unittest.main()
