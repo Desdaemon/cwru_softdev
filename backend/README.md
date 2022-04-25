@@ -4,18 +4,26 @@
 
 Requires Python 3.
 
-```shell
+```bash
 pip install -r requirements.txt
 ```
 
 ## Running
 
-```shell
+```bash
 jurigged main.py
 ```
 
 ## Run tests
 
-```shell
+```bash
 python test.py
+```
+
+## Run coverage tests
+
+```bash
+coverage run -m unittest test.py
+coverage report     # report in terminal
+coverage html       # report in html
 ```
